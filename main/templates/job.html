@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/job.css'%}">
+{% endblock %}
+
+{%block content%}
+<div class="card mb-3 x">
+  <hr>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP_TYylhvrKQ8Q_rOQFkj9njEbAxffMxj4u_RBP4bobQ&s=10" style="height: 100px; width:50%" class="card-img-top" alt="...">
+  <div class="card-body m">
+    <h5 class="card-title">Software Development Intern</h5>
+    <p class="card-text">Join Google's engineering team to build products used by billions of people 
+worldwide. As an intern, you'll work on real production systems, collaborate 
+with experienced engineers, and gain hands-on exposure to large-scale software </p>
+    <a href="" class="btn btn-secondary">ABOUT US</a>
+    <a href="" class="btn btn-info">APPLY</a>
+    <p class="card-text"><small class="text-muted">Last updated</small></p>
+  </div>
+</div>
+
+<div class="card mb-3 y">
+  <hr>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnvCklxfm8-iRy36kfpPFZz2-Nkzpqx3KqphiHpw-pWA&s=10" style="height: 100px; width:50%" class="card-img-top" alt="...">
+  <div class="card-body m">
+    <h5 class="card-title">Data Science Intern</h5>
+    <p class="card-text">Work with large-scale datasets to uncover insights that drive product and 
+business decisions. As a Data Science Intern, you'll build models, run 
+experiments, and collaborate with engineering and analytics teams to turn 
+raw data into actionable results.</p>
+    <a href="" class="btn btn-secondary">ABOUT US</a>
+    <a href="" class="btn btn-info">APPLY</a>
+    <p class="card-text"><small class="text-muted">Last updated</small></p>
+  </div>
+</div>
+
+<div class="card mb-3 z">
+  <hr>
+  <img src="https://images.seeklogo.com/logo-png/42/1/apple-logo-png_seeklogo-427436.png" style="height: 100px; width:50%" class="card-img-top" alt="...">
+  <div class="card-body m">
+    <h5 class="card-title">Data Analyst Intern</h5>
+    <p class="card-text">Analyze trends across key business metrics and translate data into clear, 
+actionable recommendations. As a Data Analyst Intern, you'll build 
+dashboards, run queries, and work closely with stakeholders to support 
+data-driven decision-making.</p>
+    <a href="" class="btn btn-secondary">ABOUT US</a>
+    <a href="" class="btn btn-info">APPLY</a>
+    <p class="card-text"><small class="text-muted">Last updated</small></p>
+  </div>
+</div>
+{%endblock %}

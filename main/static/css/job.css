@@ -1,0 +1,23 @@
+.x{
+    border-radius: 10px;
+    border-width: 8px;
+    border-color: rgb(11, 56, 122);
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    width: 70%;
+}
+.y{
+    border-radius: 10px;
+    border-width: 8px;
+    border-color: rgb(93, 122, 47);
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    width: 70%;
+
+}
+.z{
+    border-radius: 10px;
+    border-width: 8px;
+    border-color: rgb(31, 49, 78);
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    width: 70%;
+
+}

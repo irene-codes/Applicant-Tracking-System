@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/dashboard.css'%}">
+{% endblock %}
+
+
+{% block content %}
+<div class="card bg-dark text-white m ">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-wYcWcGAzgB9lPwq-NNc1NU5XGXvlkhS6o8lKj_5-Yw&s=10" class="card-img" >
+  <div class="card-img-overlay s">
+    <h3 class="q">ATS Resume Checker</h3>
+    <p class="card-text y">Build your resume, then apply to real job openings —<br> get AI-powered feedback on how well you match</p>
+    <button class="c btn btn-primary" >Smart ATS Analysis</button>
+    <!-- <a href="">UPLOAD DETAILS</a> -->
+    <div class="g">
+        <!-- <button class="l btn btn-dark " >JOB OPENINGS</button> -->
+        <a href="/jobs/" class="l btn btn-dark ">BROWSE</a>
+        <p class="o">·Software Development <br> · Data Science <br> · Design <br> · Marketing <br>  Click 'Job Openings' to explore roles matching your profile. </p>
+
+    </div>
+  </div>
+</div>
+
+{%endblock%}

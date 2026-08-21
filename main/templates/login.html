@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/login.css'%}">
+{% endblock %}
+
+
+{%block content%}
+{% if er%}
+ <div class="alert alert-primary" role="alert">
+     {{er}}
+ </div>
+
+{% endif %}
+<h2 class="lu">LOGIN PAGE</h2>
+<div class="f">
+    
+    <form action="/login/" class="fm" method="post">
+    {% csrf_token %}
+    <input class="k" type="text" name="uname"  placeholder="username" id="">
+    <input class="k" type="text" name="psw1" placeholder="password" id="">
+    <button type="button" class="btn btn-primary">Log in</button>
+    </form>
+    <form action="/register/" class="l">
+        <p>Doesn't have an account?</p>
+        <button class="btn btn-info">Register</button>
+    </form>
+</div>
+
+
+{%endblock%}

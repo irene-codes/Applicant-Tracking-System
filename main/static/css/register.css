@@ -1,0 +1,35 @@
+.fm{
+    margin:0 auto; /*  so margin auto splits evenly the leftover space made by the width liek when u give give width a fixed value it will be liek 30% of its parent and by default it will start from left and so there will be space at right so when u us emargin auto it will take teh leftover space and distribute it evenly */
+    width: 30%;
+    margin-top: 20px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 10px;
+    border-color: rgb(15, 15, 90);
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgb(151, 186, 213);
+}
+.g{
+    margin-left: 40%;
+    margin-top: 3px;
+    display: flex;
+    align-items: center; /* align items vertical */
+    /* flex-direction: column; */
+    gap: 5px;
+}
+body{
+    background-color: rgb(153, 193, 213);
+}
+
+.j{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(9, 12, 55);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-top: 40px;
+}

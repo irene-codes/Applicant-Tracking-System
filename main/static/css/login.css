@@ -1,0 +1,41 @@
+.fm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3px;
+    border: solid;
+    padding: 20px;
+    width: fit-content;
+    border-radius: 5px;
+    background-color: rgb(146, 195, 221);
+/* The rule: justify-content always aligns along the main axis, and align-items always aligns along the cross axis */
+/* flex-direction	main axis	cross axis
+row (default)	horizontal →	vertical ↕
+column (yours)	vertical ↕	horizontal → */
+}
+.k{
+    margin-bottom: 15px;
+    background-color: rgb(220, 226, 228);
+}
+.f{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+body{
+    background-color: rgb(168, 213, 221);
+}
+.l{
+    margin-top: 12px;
+}
+.lu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(9, 12, 55);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-top: 40px;
+   
+}

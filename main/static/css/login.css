@@ -39,3 +39,10 @@ body{
     margin-top: 40px;
    
 }
+
+.kl{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

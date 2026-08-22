@@ -7,20 +7,24 @@
 
 
 {%block content%}
+<h2 class="lu">LOGIN PAGE</h2>
 {% if er%}
- <div class="alert alert-primary" role="alert">
+<div class="kl">
+    <div class="alert alert-primary fl" role="alert">
      {{er}}
- </div>
+    </div>
+</div>
+ 
 
 {% endif %}
-<h2 class="lu">LOGIN PAGE</h2>
+
 <div class="f">
     
-    <form action="/login/" class="fm" method="post">
+    <form action="/login/" class="fm" method="POST">
     {% csrf_token %}
-    <input class="k" type="text" name="uname"  placeholder="username" id="">
-    <input class="k" type="text" name="psw1" placeholder="password" id="">
-    <button type="button" class="btn btn-primary">Log in</button>
+        <input class="k" type="text" name="uname"  placeholder="username" id="">
+        <input class="k" type="password" name="psw1" placeholder="password" id="">
+        <button type="submit" class="btn btn-primary">Log in</button>
     </form>
     <form action="/register/" class="l">
         <p>Doesn't have an account?</p>

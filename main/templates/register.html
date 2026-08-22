@@ -6,12 +6,17 @@
 {% block style%}
   <link rel="stylesheet" href="{% static 'css/register.css'%}">
 {% endblock %}
-{% if er %}
-   <div  class="alert alert-primary" role="alert">
-     {{er}}
-   </div>
-{% endif %}
+
 <h3 class="j">REGISTER  PAGE</h3>
+{% if er %}
+  <div class="kl">
+    <div  class="alert alert-primary fo" role="alert">
+      {{er}}
+    </div>
+  </div>
+
+{% endif %}
+
 <div class="u">
     <form class="fm"  action="/register/" method="POST">
         {% csrf_token %}
@@ -20,8 +25,8 @@
 
         <input  class="form-control"type="email" name="em" placeholder="email"><br>
         <input  class="form-control"type="text" name="uname" placeholder="username"><br>
-        <input class="form-control" type="text" name="psw1" placeholder="Password"><br>
-        <input class="form-control" type="text" name="psw2" placeholder="Confirm password"><br>
+        <input class="form-control" type="password" name="psw1" placeholder="Password"><br>
+        <input class="form-control" type="password" name="psw2" placeholder="Confirm password"><br>
         <input class="form-control btn-primary"  type="submit" value="Register" ><br>
         
    </form>

@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/addresume.css'%}">
+{% endblock %}
+
+
+{% block content %}
+<div class="z">
+    <form  class="l" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+        <div class="row">
+            {% for field in form%}
+                {% if field.name == 'address' or field.name == 'profession'%}
+                   
+                    <div class="col-md-6 p ">
+                {% else %}
+                    <div class="col-md-4 p">
+                {% endif %}
+                        {{ field.label_tag }}
+                        {{field}}<!--  But you still won't see any text labels ("Full name:", "Email:", etc.) — {{ field }} only renders the <input> tag itself, not the label -->
+                        
+
+                    </div>
+            {% endfor%}
+
+        </div>
+        <input type="button" name="" id="" class="bttn btn-primary c" value=" Save">
+        
+
+    </form>
+
+</div>
+
+
+
+{%endblock%}

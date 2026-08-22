@@ -25,14 +25,24 @@
           <a class="nav-link" href="#">About us</a>
         </li>
          <li class="nav-item">
-          <a class="nav-link" href="#">AI resume specialist</a>
+          <a class="nav-link" href="/add/">Add job preferances</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/register/">Register</a>
-        </li>
+      {% if user.is_authenticated %}
           <li class="nav-item">
-          <a class="nav-link" href="/login/">Login</a>
-        </li>
+            <a class="nav-link" href="/logout/">Logout</a>
+          </li>     
+      {% else%}
+          <li class="nav-item">
+            <a class="nav-link" href="/register/">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login/">Login</a>
+          </li>   
+      {% endif %} 
+        <li class="nav-item">
+            <p> Current User:{{request.user}} </p>
+        </li>  
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Job alerts

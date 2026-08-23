@@ -1,0 +1,80 @@
+{% extends 'resume_base.html'%}
+{% load static %}
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/resume_base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/addresume.css'%}">
+  
+{% endblock %}
+
+
+{% block resume_content %}
+<button type="button" id="add-skill-btn" class="btn btn-secondary">+ Add More Skills</button>
+<div class="z">
+    <form  class="l" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    {{ formset.management_form }}
+        <div id="skill-forms-container">
+            {% for field in formset%}
+                <div class="row skill-form">
+                {% for i in field %}
+                   {% if i.is_hidden %}
+                       {{i}}
+                   
+                   {% else%}
+                        <div class="col-md-4 p ">
+                            {{ i.label_tag }}
+                            {{i}}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            {% endfor%}
+
+        </div>
+
+        <input type="submit" name="" id="" class="btn btn-primary c" value=" Save">
+        
+
+    </form>
+
+</div>
+<script>
+   document.getElementById('add-skill-btn').addEventListener('click',function(){
+        const container=document.getElementById('skill-forms-container');
+        const forms=container.querySelectorAll('.skill-form');
+        const last_form=forms[forms.length-1];
+        const newform=last_form.cloneNode(true);
+        container.appendChild(newform)
+        const totalFormsInput = document.getElementById('id_form-TOTAL_FORMS');
+        const formNum = parseInt(totalFormsInput.value);
+        newform.querySelectorAll('input, select, label').forEach(function(el) {
+        ['name', 'id', 'for'].forEach(function(attr) {
+            if (el[attr]) {
+                el[attr] = el[attr].replace(/-\d+-/, '-' + formNum + '-');
+        }
+    });
+});
+
+});
+</script>
+
+
+{%endblock%}
+
+<!-- totalFormsInput = a reference to one specific hidden input box, whose entire job is to hold a count — specifically, "how many skill-entry forms currently exist on this page."
+
+.value = reading what number is currently sitting inside that box — like peeking inside to see what it says. In this case, it'd say "3" (as text). -->
+
+
+
+
+newform.querySelectorAll('input, select, label').forEach(function(el) {
+    ['name', 'id', 'for'].forEach(function(attr) {
+        if (el[attr]) {
+            el[attr] = el[attr].replace(/-\d+-/, '-' + formNum + '-');
+        }
+    });
+});
+
+<!-- The input box → has an id (its own identity: id="id_form-2-skill").
+The label → has a for (a reference pointing at the input's id: for="id_form-2-skill") — but does not typically have its own id attribute at all. -->

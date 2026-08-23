@@ -1,5 +1,5 @@
 from django import forms
-from .models import Resume
+from .models import *
 
 class ResumeForm(forms.ModelForm):
     class Meta:
@@ -10,6 +10,26 @@ class ResumeForm(forms.ModelForm):
             'dob': forms.DateInput(attrs={'type': 'date'}),
             
 
+        }
+
+class ExperianceForm(forms.ModelForm):
+    class Meta:
+        model=experiance
+        exclude=['user']
+        db_table = "experience"
+        widgets ={
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date':forms.DateInput(attrs={'type':'date'})
+
+        }
+class EducationForm(forms.ModelForm):
+    class Meta:
+        model=education
+        exclude=['user']
+        db_table = "education"
+        widgets ={
+            'graduation_start_date':forms.DateInput(attrs={'type':'date'}),
+            'graduation_end_date':forms.DateInput(attrs={'type':'date'})
         }
         
 

@@ -13,7 +13,7 @@
     {%csrf_token%}
         <div class="row">
             {% for field in form%}
-                {% if field.name == 'address' or field.name == 'profession'%}
+                {% if field.name == 'school_name' or field.name == 'city' or field.name == 'state' or field.name == 'select_a_degree' %}
                    
                     <div class="col-md-6 p ">
                 {% else %}

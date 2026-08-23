@@ -10,6 +10,7 @@ class Resume(models.Model):
     middle_name=models.CharField(max_length=50,null=True,blank=True,verbose_name="Middle name (Optional)")
     last_name=models.CharField(max_length=50,null=True,blank=True)
     GENDER_CHOICES = [
+        ('', 'Select'),
         ('men', 'Men'),
         ('women', 'Women'),
         ('others','Others'),
@@ -20,6 +21,7 @@ class Resume(models.Model):
     dob=models.DateField(null=True,blank=True,verbose_name="DOB (Optional)")
     
     MARITAL_CHOICES=[
+        ('', 'Select'),
         ('single','Single'),
         ('married','Married'),
         ('divorced','Divorced'),
@@ -33,21 +35,81 @@ class Resume(models.Model):
     city=models.CharField(max_length=100,null=True,blank=True)
     state=models.CharField(max_length=100,null=True,blank=True)
     nationality=CountryField(null=True,blank=True,verbose_name="Nationality (Optional)")
-    pin_code=models.CharField(null=True,blank=True,verbose_name=" Pin code(Optional)")
-    email=models.EmailField()
-    phone=models.CharField(max_length=14)
+    pin_code=models.CharField(max_length=10,null=True,blank=True,verbose_name="Pin code (Optional)")
+    email=models.EmailField(null=True,blank=True)
+    phone=models.CharField(max_length=14,null=True,blank=True)
 
     class Meta:
            db_table="profile"
-    
-    # degree = models.CharField(max_length=100)
-    # institution = models.CharField(max_length=150)
-    # graduation_year = models.CharField(max_length=10)
-    # cgpa = models.CharField(max_length=5, blank=True, null=True)
-    # linkedin_url=models.URLField(blank=True,null=True)
-    # github_url=models.URLField(blank=True,null=True)
-    # created_at = models.DateTimeField(auto_now_add=True)
-    # updated_at = models.DateTimeField(auto_now=True)
-    # summary = models.TextField(help_text="bio")
-    # skills=models.TextField(help_text="eg:python,web development...")
    
+class experiance(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    job_title=models.CharField(max_length=50)
+    employer=models.CharField(max_length=50)
+    city=models.CharField(max_length=100)
+    state=models.CharField(max_length=50)
+    start_date=models.DateField(null=True,blank=True)
+    end_date=models.DateField(null=True,blank=True)
+    class Meta:
+        db_table = "experience"
+
+class education(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    school_name=models.CharField(max_length=100)
+    city=models.CharField(max_length=50)
+    state=models.CharField(max_length=50)
+    DEGREE_CHOICES = [
+        ('', 'Select'),
+        ('high_school_diploma', 'High School Diploma'),
+        ('ssc', 'Senior Secondary School Certificate (SSCE)'),
+        ('gcse', 'General Certificate of Secondary Education (GCSEs)'),
+        ('ged', 'GED'),
+        ('diploma', 'Diploma'),
+        ('national_diploma', 'National Diploma'),
+        ('higher_national_diploma', 'Higher National Diploma'),
+        ('post_secondary_vocational', 'Post-secondary (Technical & Vocational)'),
+        ('associate_arts', 'Associate of Arts'),
+        ('associate_science', 'Associate of Science'),
+        ('associate_applied_science', 'Associate of Applied Science'),
+        ('bachelor_arts', 'Bachelor of Arts (BA)'),
+        ('bachelor_science', 'Bachelor of Science (BSc)'),
+        ('bachelor_technology', 'Bachelor of Technology (B.Tech)'),
+        ('bachelor_engineering', 'Bachelor of Engineering (BE)'),
+        ('bachelor_commerce', 'Bachelor of Commerce (B.Com)'),
+        ('bachelor_business_admin', 'Bachelor of Business Administration (BBA)'),
+        ('bachelor_computer_apps', 'Bachelor of Computer Applications (BCA)'),
+        ('llb', 'Bachelor of Laws (LLB)'),
+        ('mbbs', 'Bachelor of Medicine, Bachelor of Surgery (MBBS)'),
+        ('master_arts', 'Master of Arts (MA)'),
+        ('master_science', 'Master of Science (MSc)'),
+        ('master_technology', 'Master of Technology (M.Tech)'),
+        ('master_business_admin', 'Master of Business Administration (MBA)'),
+        ('master_computer_apps', 'Master of Computer Applications (MCA)'),
+        ('master_commerce', 'Master of Commerce (M.Com)'),
+        ('llm', 'Master of Laws (LLM)'),
+        ('phd', 'Doctor of Philosophy (PhD)'),
+        ('md', 'Doctor of Medicine (MD)'),
+        ('certificate', 'Certificate Course'),
+        ('other', 'Other')
+
+    ]
+    select_a_degree=models.CharField(max_length=100,choices=DEGREE_CHOICES,null=True,blank=True)
+    field_of_study=models.CharField(max_length=100)
+    graduation_start_date=models.DateField(null=True,blank=True)
+    graduation_end_date=models.DateField(null=True,blank=True)
+    class Meta:
+            db_table = "education"
+
+
+class Skills(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    skill=models.CharField(max_length=20)
+    SKILL_CHOICES=[
+        ('','Select'),
+        ('novice','Novice'),
+        ('beginner','Beginner'),
+        ('intermediate','Intermediate'),
+        ('proficient','Proficient'),
+        ('expert','Expert')
+    ]
+    level=models.CharField(max_length=15,choices=SKILL_CHOICES,null=True,blank=True)

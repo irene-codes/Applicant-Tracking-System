@@ -1,0 +1,71 @@
+{% extends 'resume_base.html'%}
+{% load static %}
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/resume_base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/addresume.css'%}">
+  
+{% endblock %}
+{% block resume_content%}
+   <div class="z">
+    <form  class="l" method="post" action="/photo/" enctype="multipart/form-data">
+    {%csrf_token%}
+       
+        <div class="row">
+            {% for field in form%}
+                {% if field.name == 'photoup' %}
+                    
+                   <img class="pha" id="preview" src=" {% if form.instance.photoup%}{{form.instance.photoup.url}}{% endif %}" alt="">
+                   <small>Upload a passport-size photo (JPG/PNG, max 2MB) <br>Please upload a recent photo. Accepted formats: JPG, PNG. Max size: 2MB. Passport-style photos with a plain background work best. <br>JPG or PNG only, max 2MB </small>
+                        
+                        
+      
+                
+                    <div class="col-md-6 p ">
+                {% else %}
+                    <div class="col-md-4 p">
+                {% endif %}
+                
+                        {{ field.label_tag }}
+                        {{field}}<!--  But you still won't see any text labels ("Full name:", "Email:", etc.) — {{ field }} only renders the <input> tag itself, not the label -->                        
+                    </div>
+            {% endfor%}
+
+        </div>
+        <input type="button" name="" id="" class="btn btn-primary c" value=" Save">
+        
+
+    </form>
+
+</div>
+
+<script>
+    document.getElementById('id_photoup').addEventListener('change',function(){
+        
+        const file = this.files[0];
+        
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            // this runs once the file has finished being read
+            // reader.result now holds the data URL
+            document.getElementById('preview').src=reader.result
+
+        };
+
+        reader.readAsDataURL(file);
+        //This actually kicks off the read. It tells the reader: "read this file, and when done, convert it into a Data URL
+
+
+        //The <input type="file"> — this is what Django auto-generated with id id_photoup. This is the button the user clicks to choose a file.
+        //The <img> — this is a completely different tag, the one that will display the picture. Right now it has id="preview"    
+    })  
+</script>
+{% endblock %}
+
+
+
+
+
+
+<!-- this inside your event listener refers to the <input id="id_photoup"> element itself (the one that triggered the change event). File inputs have a special property called .files — it's a list-like collection of every file the user selected. -->
+

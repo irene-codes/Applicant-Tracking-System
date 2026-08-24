@@ -10,7 +10,7 @@
 {% block resume_content %}
 <button type="button" id="add-skill-btn" class="btn btn-secondary">+ Add More Skills</button>
 <div class="z">
-    <form  class="l" method="post" enctype="multipart/form-data">
+    <form  class="l" method="post" action="/skills/" enctype="multipart/form-data">
     {%csrf_token%}
     {{ formset.management_form }}
         <div id="skill-forms-container">

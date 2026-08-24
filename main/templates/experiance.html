@@ -9,7 +9,7 @@
 
 {% block resume_content %}
 <div class="z">
-    <form  class="l" method="post" enctype="multipart/form-data">
+    <form  class="l" method="post" action="/experiance/" enctype="multipart/form-data">
     {%csrf_token%}
         <div class="row">
             {% for field in form%}

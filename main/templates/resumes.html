@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/resumes.css'%}">
+{% endblock %}
+
+{% block content %}
+<div class="templates">
+    <div class="wrap1">
+        <p >Professional1 </p>
+        <div class="template123">
+            <iframe src="{% url 'preview1' %}" class="template-frame" frameborder="0"></iframe>
+            
+        </div>
+        <button class="btn btn-primary lo">Select</button>
+    </div>
+    
+    
+    <div class="wrap2">
+        <p>Professional2 </p>
+        <div class="template123">
+            <iframe src="{% url 'preview2' %}" class="template-frame" frameborder="0"></iframe>
+        </div>
+        <button class="btn btn-primary lo">Select</button>
+
+
+    </div>
+
+   <div class="wrap2">
+    <p>Professional3 </p>
+        
+     <div class="template123">
+        <iframe src="{% url 'preview3' %}" class="template-frame" frameborder="0"></iframe>
+    </div>
+    <button class="btn btn-primary lo">Select</button>
+   </div>
+</div>
+{% endblock %}

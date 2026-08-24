@@ -1,1 +1,54 @@
 {% extends 'resume_base.html'%}
+{% load static %}
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/resume_base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/interest.css'%}">
+  
+{% endblock %}
+
+{% block resume_content %}
+<button type="button" id="add-interest-btn" class="btn btn-secondary">+ Add More Interests</button>
+<div class="z">
+    <form  class="l" method="post" action="/interests/" enctype="multipart/form-data">
+    {%csrf_token%}
+    {{ formset.management_form }}
+        <div id="interest-forms-container">
+            {% for field in formset%}
+                <div class="row skill-form">
+                     {{field}}
+                </div>
+            {% endfor%}
+
+        </div>
+        <div class="row">
+        <input type="submit" name="" id="" class="btn btn-primary c" value=" Save">
+
+
+        </div>
+        
+
+    </form>
+
+</div>
+<script>
+   document.getElementById('add-interest-btn').addEventListener('click',function(){
+        const container=document.getElementById('interest-forms-container');
+        const forms=container.querySelectorAll('.skill-form');
+        const last_form=forms[forms.length-1];
+        const newform=last_form.cloneNode(true);
+        container.appendChild(newform)
+        const totalFormsInput = document.getElementById('id_form-TOTAL_FORMS');
+        const formNum = parseInt(totalFormsInput.value);
+        newform.querySelectorAll('input, select, label').forEach(function(el) {
+        ['name', 'id', 'for'].forEach(function(attr) {
+            if (el[attr]) {
+                el[attr] = el[attr].replace(/-\d+-/, '-' + formNum + '-');
+        }
+    });
+});
+
+});
+</script>
+
+
+{%endblock%}

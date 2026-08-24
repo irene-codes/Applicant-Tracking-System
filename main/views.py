@@ -4,6 +4,8 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.forms import modelformset_factory
+from django.views.decorators.clickjacking import xframe_options_exempt
+
 
 @login_required(login_url='/login')
 def homefn(request):
@@ -111,8 +113,45 @@ def skillfn(request):
 #instance=expects exactly one database row
 #queryset=expects a collection of rows
 
-def summaryfn(request):
-    return render(request,'summary.html')
-
 def interestfn(request):
-    return render(request,'interest.html')
+    interest_set=modelformset_factory(Interests,exclude=['user'],extra=3,can_delete=True)
+    qs=Interests.objects.filter(user=request.user)
+    if request.method=='POST':
+        formset=interest_set(request.POST,queryset=qs)
+        if formset.is_valid():
+            formset.save()
+    else:
+        formset=interest_set(queryset=qs)
+    return render(request,'interest.html',{'formset':formset})
+
+
+def resumesfn(request):
+    return render(request,'resumes.html')
+
+@xframe_options_exempt
+def resume1fn(request):
+    return render(request,'resume1.html')
+
+@xframe_options_exempt
+def resume2fn(request):
+    return render(request,'resume2.html')
+
+@xframe_options_exempt
+def resume3fn(request):
+    return render(request,'resume3.html')
+
+
+def photofn(request):
+    pho,_=Photo.objects.get_or_create(user=request.user)
+    if request.method=='POST':
+        form=Photoform(request.POST,instance=pho)
+        if form.is_valid():
+            form.save()
+    else:
+        form=Photoform(instance=pho)
+    return render(request,'photo.html',{'form':form})
+
+
+
+
+# form = Photoform(instance=pho) — this tells Django "store this object as the form's instance."

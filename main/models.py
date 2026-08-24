@@ -113,3 +113,20 @@ class Skills(models.Model):
         ('expert','Expert')
     ]
     level=models.CharField(max_length=15,choices=SKILL_CHOICES,null=True,blank=True)
+
+
+    
+class Interests(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    Hobbies=models.CharField(max_length=20,null=True,blank=True)
+
+
+class Photo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    photoup=models.ImageField(upload_to='photo',null=True,blank=True,verbose_name='Upload cv photo')
+    linkedin=models.URLField(max_length=200,blank=True)   
+    twitter=models.URLField(max_length=200,blank=True)   
+    github=models.URLField(max_length=200,blank=True)   
+    website=models.URLField(max_length=200,blank=True)   
+    leetcode=models.URLField(max_length=200,blank=True)
+    facebook=models.URLField(max_length=200,blank=True,null=True)   

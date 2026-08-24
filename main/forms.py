@@ -31,6 +31,8 @@ class EducationForm(forms.ModelForm):
             'graduation_start_date':forms.DateInput(attrs={'type':'date'}),
             'graduation_end_date':forms.DateInput(attrs={'type':'date'})
         }
+
+
         
 
 
@@ -42,3 +44,12 @@ class EducationForm(forms.ModelForm):
 # col-md-4 three times → 4+4+4 = 12 → each takes exactly 1/3 of the row
 # col-md-6 two times → 6+6 = 12 → each takes exactly 1/2 of the row
 # col-md-3 four times → 3+3+3+3 = 12 → each takes exactly 1/4 of the row
+
+
+
+
+class Photoform(forms.ModelForm):
+    class Meta:
+        model=Photo
+        exclude=['user']
+        

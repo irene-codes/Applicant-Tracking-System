@@ -1,0 +1,28 @@
+.templates{
+    display: flex;
+    justify-content: center;
+    
+    
+}
+
+.template123 {
+    margin-right: 10px;
+    width: 360px;
+    text-align: center;
+    overflow: hidden;      /* important: clips the shrunk iframe cleanly */
+    height: 450px;          /* fixed height for the visible box */
+    border: solid;
+    border-color: rgb(70, 136, 144);
+}
+
+.template-frame {
+    width: 1200px;           /* the resume's real, natural width */
+    height: 1500px;         /* the resume's real, natural height  */
+    border: 1px solid #ccc;
+    transform: scale(0.3);        /* shrinks the WHOLE rendered page down */
+    transform-origin: top left;   /* shrinks from the top-left corner, not center */
+    pointer-events: none;         /* stops accidental clicks/scrolling inside preview */
+}
+.lo{
+    margin-top: 5px;
+}

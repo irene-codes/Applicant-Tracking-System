@@ -11,7 +11,7 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link {% if request.resolver_match.url_name == 'profile' %}active {% endif %} " aria-current="page" href="/add/">Profile</a>
+        <a class="nav-link {% if request.resolver_match.url_name == 'profile' %}active {% endif %} " aria-current="page" href="/add/{{t_name}}">Profile</a>
       </li>
       <li class="nav-item">
         <a class="nav-link {% if request.resolver_match.url_name == 'experiance' %}active {% endif %} " aria-current="page" href="/experiance/">Experiance</a>
@@ -21,6 +21,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link {% if request.resolver_match.url_name == 'skills' %}active {% endif %} " aria-current="page" href="/skills/">Skills</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'expertise' %}active {% endif %} " aria-current="page" href="/expertise/">Expertise</a>
       </li>
     
       <li class="nav-item">

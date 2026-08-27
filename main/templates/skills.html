@@ -47,6 +47,8 @@
         container.appendChild(newform)
         const totalFormsInput = document.getElementById('id_form-TOTAL_FORMS');
         const formNum = parseInt(totalFormsInput.value);
+        totalFormsInput.value = formNum+1;
+
         newform.querySelectorAll('input, select, label').forEach(function(el) {
         ['name', 'id', 'for'].forEach(function(attr) {
             if (el[attr]) {

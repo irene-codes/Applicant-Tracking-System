@@ -1,3 +1,9 @@
+.novice {width: 20%;}
+.beginner {width: 35%;}
+.intermediate {width: 50%;}
+.proficient {width: 70%;}
+.expert {width: 90%;}
+
 * {box-sizing: border-box;}
 /* body {margin: 0 15%;} */
 img {display:block;}

@@ -130,3 +130,8 @@ class Photo(models.Model):
     website=models.URLField(max_length=200,blank=True)   
     leetcode=models.URLField(max_length=200,blank=True)
     facebook=models.URLField(max_length=200,blank=True,null=True)   
+
+class Expertise(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    

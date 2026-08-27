@@ -6,6 +6,10 @@
 {% endblock %}
 
 {% block content %}
+{% if k %}
+    {{k}}
+{% endif %}
+
 <div class="templates">
     <div class="wrap1">
         <p >Professional1 </p>
@@ -13,7 +17,8 @@
             <iframe src="{% url 'preview1' %}" class="template-frame" frameborder="0"></iframe>
             
         </div>
-        <button class="btn btn-primary lo">Select</button>
+        <a href="/add/professional1"  class="btn btn-primary lo"> Select</a>
+        
     </div>
     
     
@@ -22,7 +27,7 @@
         <div class="template123">
             <iframe src="{% url 'preview2' %}" class="template-frame" frameborder="0"></iframe>
         </div>
-        <button class="btn btn-primary lo">Select</button>
+        <a href="/add/professional2"  class="btn btn-primary lo"> Select</a>
 
 
     </div>
@@ -33,7 +38,7 @@
      <div class="template123">
         <iframe src="{% url 'preview3' %}" class="template-frame" frameborder="0"></iframe>
     </div>
-    <button class="btn btn-primary lo">Select</button>
+    <a href="/add/professional3"  class="btn btn-primary lo"> Select</a>
    </div>
 </div>
 {% endblock %}

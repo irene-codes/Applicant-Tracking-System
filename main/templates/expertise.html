@@ -7,12 +7,12 @@
 {% endblock %}
 
 {% block resume_content %}
-<button type="button" id="add-interest-btn" class="btn btn-secondary">+ Add More Interests</button>
+<button type="button" id="add-expertise-btn" class="btn btn-secondary">+ Add More Interests</button>
 <div class="z">
-    <form  class="l" method="post" action="/interest/" enctype="multipart/form-data">
+    <form  class="l" method="post" action="/expertise/" enctype="multipart/form-data">
     {%csrf_token%}
     {{ formset.management_form }}
-        <div id="interest-forms-container">
+        <div id="expertise-forms-container">
             {% for field in formset%}
                 <div class="row skill-form">
                      {{field}}
@@ -31,8 +31,8 @@
 
 </div>
 <script>
-   document.getElementById('add-interest-btn').addEventListener('click',function(){
-        const container=document.getElementById('interest-forms-container');
+   document.getElementById('add-expertise-btn').addEventListener('click',function(){
+        const container=document.getElementById('expertise-forms-container');
         const forms=container.querySelectorAll('.skill-form');
         const last_form=forms[forms.length-1];
         const newform=last_form.cloneNode(true);

@@ -9,7 +9,7 @@
 
 {% block resume_content %}
 <div class="z">
-    <form  class="l" method="post" action="/add/" enctype="multipart/form-data">
+    <form  class="l" method="post" action="/add/{{t_name}}" enctype="multipart/form-data">
     {%csrf_token%}
         <div class="row">
             {% for field in form%}
@@ -25,7 +25,7 @@
             {% endfor%}
 
         </div>
-        <input type="button" name="" id="" class="bttn btn-primary c" value=" Save">
+        <input type="submit" name="" id="" class="bttn btn-primary c" value=" Save">
         
 
     </form>

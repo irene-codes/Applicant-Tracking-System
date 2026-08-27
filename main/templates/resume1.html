@@ -1,4 +1,5 @@
 
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -13,14 +14,24 @@
 
 <body>
 
-
+{% if not is_pdf %}
+<a href="{% url 'resume_pdf' %}" style="position:fixed; top:1rem; right:1rem; background:#2563eb; color:white; padding:0.6rem 1.2rem; border-radius:6px; text-decoration:none; z-index:999; font-family:sans-serif;">
+   Download PDF
+</a>
+{% endif %}
     
 <div class="flexContainer"> 
    
    <div class="leftColumn"> <!--start of the container for the left column-->
       <div class=leftRow> <!-- start of the container for the pic-->
-        <img src="https://lh3.googleusercontent.com/FHudkDpNv_i_df_1iQFNjjtdrFRBByEr3PuB3e5rNDaleJtOYQ86YgcA4MVUkkcy7dIIEzqE5Et9FH1p5hF4l9axdjkF8AaUeSxffxEB0fAsfrKLDoKFXJ-8bX0lAsmnh56i02zjeg=w2400" alt="ddp" width=100% >
-        <p id="name"> KUBA <br> KESSLER <br> </p>
+        <img src="{% if ph.photoup %}{{ph.photoup.url}}{% else %}  https://lh3.googleusercontent.com/FHudkDpNv_i_df_1iQFNjjtdrFRBByEr3PuB3e5rNDaleJtOYQ86YgcA4MVUkkcy7dIIEzqE5Et9FH1p5hF4l9axdjkF8AaUeSxffxEB0fAsfrKLDoKFXJ-8bX0lAsmnh56i02zjeg=w2400 {% endif %}" alt="ddp" width=100% >
+        <p id="name">{% if  pr.first_name and pr.last_name %}{{pr.first_name}} {% if pr.middle_name %}{{pr.middle_name}}{% endif %} {{pr.last_name }}
+         {% else %}
+          KUBA <br> KESSLER <br>
+
+         {% endif %}
+         </p>
+         
         <hr class="HeaderHr" id="leftHr">
         <hr class="HeaderHr" id="rightHr">
         <div class="over" id="dotContainer">
@@ -31,7 +42,7 @@
      </div> <!-- end of leftRow1 (container for the pic) -->
       <div class=leftRow> <!-- start of the triangle shape between the picture and bottom of left column -->
         <div id=Cone> </div>
-        <p class="over" id="Profession"> W3C STUDENT </p>
+        <p class="over" id="Profession">{% if pr.profession %}{{pr.profession}} {%else%} W3C STUDENT {% endif %} </p>
         <div class="Triangle1" id=LeftTriangle> </div>
         <div class="Triangle2" id=LeftTriangle2> </div>
         <div class="Triangle1" id=RightTriangle> </div>
@@ -40,18 +51,36 @@
       <div class=leftRow id="LeftBottom"> <!--left column bottom - contact details & skills -->
          <br>
          <h2 class="left"> CONTACT </h2> <hr>
-         <span class="left"> +48 999 888 777</span> <hr>
-         <span class="left"> myemail@google.com </span> <hr>
-         <span class="left"> City Street Apartment </span> <hr> <br>
+         <span class="left"> {% if pr.phone %}{{pr.phone}}{% else %} +48 999 888 777 {% endif %} </span> <hr>
+         <span class="left">{% if pr.email%}{{pr.email}}{% else %}  myemail@google.com {% endif %} </span> <hr>
+         <span class="left"> Address:{% if pr.address%}{{pr.address}} {% else%} ABC house,xyz{% endif %}  </span> <hr> <br>
+         <span class="left"> City: {% if pr.city %}{{pr.city}}{% else %} Street Apartment {% endif %} </span> <hr> <br>
+         <span class="left"> State:{% if pr.state %}{{pr.state}}{% else %} lMN {% endif %} </span> <hr> <br>
+
          
         <h2 class="left"> SKILLS </h2>
-            <div class="skills"> Microsoft Office <hr class="skillBar" id="microsoftOffice"> </div>
+            {% if sk%}
+
+               {% for i in sk%}
+                  <div class="skills"> {{i.skill}} {{i.level}} <hr class="skillBar {{i.level}}" id= "{{i.id}}"> </div>
+                   
+               {% endfor %}
+            {% else %}
+            <div class="skills">  Microsoft Office <hr class="skillBar" id="microsoftOffice"> </div>
             <div class="skills"> Adobe Analytics <hr class="skillBar" id="adobeAnalytics"> </div>
             <div class="skills"> Google Analytics <hr class="skillBar" id="googleAnalytics"> </div>
             <div class="skills"> Google Ads <hr class="skillBar" id="googleAds"> </div>
             <div class="skills"> HTML, CSS, JavaScript <hr class="skillBar" id="htmlCssJavascript"> </div>
+            {% endif %}
          
         <h2 class="left"> EXPERTISE </h2>
+             {% if xt%}
+
+               {% for i in xt%}
+                  <div class="skills"> {{i.name}}<hr class="skillBar" id= "{{i.id}}"> </div>
+                   
+               {% endfor %}
+            {% else %}
             <div class="skills"> Project Management <hr class="skillBar" id="projectManagement"> </div>
             <div class="skills"> Product Development <hr class="skillBar" id="productDevelopment"> </div>
             <div class="skills"> Problem Solving <hr class="skillBar" id="problemSolving"> </div>
@@ -59,11 +88,15 @@
             <div class="skills"> Business Analysis <hr class="skillBar" id="businessAnalysis"> </div>
             <div class="skills"> Negotiation <hr class="skillBar" id="negotiation"> </div>
             <div class="skills"> Consumer Communication <hr class="skillBar" id="consumerCommunication"> </div>
-         
+            {% endif %}
         <br> <h2 class="left"> SOCIAL </h2> <hr>
-         <span class="left"> linkedin.com/yourname </span> <hr>
-         <span class="left"> facebook.com/yourname </span> <hr>
-         <span class="left"> instagram.com/yourname </span> <hr> <br>
+        
+         <span class="left"> {% if ph.linkedin %}{{ph.linkedin}}{% else %} linkedin.com/yourname {% endif %} </span> <hr>
+         <span class="left">{% if ph.twitter %}{{ph.twitter}}{% else %} twitter.com/yourname{% endif %}  </span> <hr>
+         <span class="left"> {% if ph.github %}{{ph.github}}{% else %}github.com/yourname{% endif %}  </span> <hr>
+         <span class="left">{% if ph.website %}{{ph.website}}{% else %} website.com/yourname {% endif %} </span> <hr>
+         <span class="left"> {% if ph.leetcode %}{{ph.leetcode}}{% else %}leetcode.com/yourname{% endif %}  </span> <hr>
+         <span class="left">{% if ph.facebook %}{{ph.facebook}}{% else %} facebook.com/yourname {% endif %} </span> <hr> <br>
       </div>
    </div> <!-- end of the container for the left column-->
  
@@ -78,13 +111,14 @@
      <div class="rightRow">
        <h2 class="right"> WORK EXPERIENCE </h2>
      </div> <!-- work experience header -->
+
         <div class="containerHl"> <!-- work experience container -->
            <div class="years"> 
-              <h3> 05.2018 - now </h3>
+              <h3> {% if ex.start_date %}{{ex.start_date}}{% else%} Fresher {% endif %} {% if ex.end_date %} {{ex.end_date}} {% else %} now {% endif %} </h3>
            </div> <!-- years container -->
            <div class="jobs">
-              <h3> JOB POSITION / TITLE <h3>
-              <h4> Company / Location </h4>
+              <h3> {% if ex.job_title%} {{ex.job_title}}{% else%} JOB POSITION / TITLE {% endif%}</h3>
+              <h4>{% if ex.employer %}{{ex.employer}}{% else%}EMPLOYER{% endif %} {% if ex.city %}{{ex.city}}{% else %}CITY{% endif %} {% if ex.state %} {{ex.state}} {% else %} STATE {% endif %} </h4>
            </div> <!-- job description container -->         
         </div> <!-- work experience header (year & title) container -->
         <div class="containerText">
@@ -94,16 +128,20 @@
              <div class="verticalLines"> </div>
              <div class="verticalLines"> </div>
              <div class="jobText"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
-        </div> <!-- work experience description -->    
-        <div class="containerHl"> <!-- work experience container -->
+        </div> <!-- work experience description -->   
+        
+        
+
+
+ <div class="containerHl"> 
            <div class="years"> 
               <h3> 01.2017 </h3>
-           </div> <!-- years container -->
+           </div>
            <div class="jobs">
               <h3> JOB POSITION / TITLE <h3>
               <h4> Company / Location </h4>
-           </div> <!-- job description container -->         
-        </div> <!-- work experience header (year & title) container -->
+           </div>         
+        </div>
         <div class="containerText">
              <div class="verticalLines"> </div>
              <div class="verticalLines"> </div>
@@ -111,35 +149,40 @@
              <div class="verticalLines"> </div>
              <div class="verticalLines"> </div>
              <div class="jobText"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
-        </div> <!-- work experience description -->        
-        <div class="containerHl"> <!-- work experience container -->
+        </div> 
+        
+        
+
+        <div class="containerHl"> 
            <div class="years"> 
-              <h3> 01.2014 </h3>
-           </div> <!-- years container -->
+              <h3> 01.2014 </h3> 
+            </div> 
            <div class="jobs">
               <h3> JOB POSITION / TITLE <h3>
               <h4> Company / Location </h4>
-           </div> <!-- job description container -->         
-        </div> <!-- work experience header (year & title) container -->
+           </div>        
+        </div> 
         <div class="containerText">
              <div class="verticalLines"> </div>
              <div class="verticalLines"> </div>
              <div class="verticalLines"> </div>
              <div class="verticalLines"> </div>
              <div class="verticalLines"> </div>
-             <div class="jobText"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div> 
-        </div> <!-- work experience description -->     
+             <div class="jobText"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>  
+        </div>    
     
      <div class="rightRow">  
        <h2 class="right"> EDUCATION </h2>
        </div> <!-- education header -->
+       
         <div class="containerHl"> <!-- education container -->
            <div class="years"> 
-              <h3> 09.2009 </h3>
+              <h3>{% if ed.graduation_end_date %}{{ed.graduation_end_date}} {% else %} 09.2009 {% endif %} </h3>
            </div> <!-- years container -->
            <div class="jobs">
-              <h3> DEGREE / TITLE <h3>
-              <h4> Institution / Location </h4>
+              <h3> {% if ed.select_a_degree and ed.field_of_study %} {{ed.select_a_degree}} {{ed.field_of_study}} {% else %} DEGREE / TITLE {% endif %} </h3>
+              <h4>{% if ed.school_name %}{{ed.school_name}}{% else%}SCHOOL NAME{% endif %} {% if ed.city %}{{ed.city}}{% else %}CITY{% endif %} {% if ed.state %} {{ed.state}} {% else %} STATE {% endif %} </h4>
+              
            </div> <!-- education description container -->         
         </div> <!-- education header (year & title) container -->
         <div class="containerText">
@@ -149,16 +192,17 @@
              <div class="verticalLinesEdu"> </div>
              <div class="verticalLinesEdu"> </div>
              <div class="jobText"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
-        </div> <!-- education description -->    
-        <div class="containerHl"> <!-- education container -->
+        </div> <!-- education description -->  
+
+        <div class="containerHl"> 
            <div class="years"> 
               <h3> 09.2007 </h3>
-           </div> <!-- years container -->
+           </div> 
            <div class="jobs">
               <h3> DEGREE / TITLE <h3>
               <h4> Institution / Location </h4>
-           </div> <!-- education description container -->         
-        </div> <!-- education header (year & title) container -->
+           </div>        
+        </div> 
         <div class="containerText">
              <div class="verticalLinesEdu"> </div>
              <div class="verticalLinesEdu"> </div>
@@ -166,7 +210,7 @@
              <div class="verticalLinesEdu"> </div>
              <div class="verticalLinesEdu"> </div>
              <div class="jobText"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
-        </div> <!-- education description -->
+        </div>
      </div>  <!-- end of the container for the right column -->
  </div> <!-- end of the flex container -->
 <!-- made as a copy of a design by 'ResumeInventor' on https://graphicriver.net/item/modern-resume/23466102 --> 

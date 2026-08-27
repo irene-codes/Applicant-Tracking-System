@@ -40,6 +40,13 @@ input,select,textarea{
 
 }
 
+.j{
+   width: 70px; 
+   margin-top: 10px;
+   margin-left: 50%;
+
+}
+
 .pha{
     height: 200px;
     width: 200px;

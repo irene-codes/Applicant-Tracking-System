@@ -2,9 +2,14 @@ from django.urls import path
 from main.views import *
 urlpatterns=[
    path('',homefn),
+  
+   path('dashboard/',dashboardfn),
    path('add/<str:t_name>',addfn,name='profile'),
    path('jobs/',jobfn),
-   path('register/',registerfn),
+   path('jobsearch/',jobsearchfn),
+   path('registerinterviewer/',registerfn),
+   path('registerapplicant/',registerfn),
+
    path('login/',loginfn),
    path('logout/',logoutfn),
    path('experiance/',experiancefn,name='experiance'),

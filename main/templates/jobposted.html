@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block style%}
+<link rel="stylesheet" href="{% static 'css/jobposted.css'  %}">
+{%endblock %}
+
+{%block content%}
+{% for i in jobs%}
+<div class="card">
+  <h5 class="card-header"> {{i.title}} </h5>
+  <div class="card-body">
+    <h5 class="card-title"> {{i.company}} </h5>
+    <p class="card-text"> {{i.description}} </p>
+    <p class="card-text"> {{i.salary}} </p>
+    <p class="card-text"> {{i.location}} </p>
+    <p class="card-text"> {{i.responsibilities}} </p>
+    <p class="card-text"> {{i.requirements}} </p>
+    <p class="card-text"> {{i.availability}} </p>
+    <p class="card-text"> Posted by:{{request.user}} </p>
+    {% if request.user == i.posted_by%}
+    <a href="#" class="btn btn-primary">Delete</a>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+{%endblock %}

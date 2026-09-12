@@ -14,48 +14,103 @@ from weasyprint import HTML
 
 @login_required(login_url='/login')
 def homefn(request):
-    return render(request,'dashboard.html')
+    return render(request,'home.html')
 
-# def dashboardfn(request):
-#     return render(request,'dashboard.html')
+
+
+
 @login_required(login_url='/login')
 def jobfn(request):
-    return render(request,'job.html')
+    role=Usercat.objects.get(user=request.user).role
+    if role == 'applicant':
+        jobs=Job.objects.all()
+        return render(request,'jobapplicant.html',{'job':jobs})
+    else:       
+        if request.method=='POST':
+            form=Jobform(request.POST)   
+            if form.is_valid():
+                new_job=form.save(commit=False)
+                new_job.posted_by=request.user
+                new_job.save()
+                return redirect('/jobsearch/')
+        else:
+            form=Jobform()
+    return render(request,'jobinterviewer.html',{'form':form})
+
+
+# Creating something new — you just do form = Photoform(request.POST), and submitting it creates a brand new row in the database.
+# Editing something that already exists — you do form = Photoform(request.POST, instance=existing_object), which tells Django: "don't create a new row — take this specific existing row (existing_object) and update its fields with whatever was submitted."
+
+
 
 def registerfn(request):
-    if request.method=='POST':
-        f=request.POST['fname']
-        l=request.POST['lname']
-        e=request.POST['em']
-        u=request.POST['uname']
-        p1=request.POST['psw1']
-        p2=request.POST['psw2']
-        if p1==p2:
-            if User.objects.filter(username=u).exists():
-                return render(request,'register.html',{'er':'username taken'})
-            elif User.objects.filter(email=e).exists():
-                return render(request,'register.html',{'er':'email taken'})        
+    if 'applicant' in request.path:
+        if request.method=='POST':    
+            f=request.POST['fname']
+            l=request.POST['lname']
+            e=request.POST['em']
+            u=request.POST['uname']
+            p1=request.POST['psw1']
+            p2=request.POST['psw2']
+            if p1==p2:
+                if User.objects.filter(username=u).exists():
+                    return render(request,'registerapplicant.html',{'er':'username taken'})
+                elif User.objects.filter(email=e).exists():
+                    return render(request,'registerapplicant.html',{'er':'email taken'})        
+                else:
+                    new_user=User.objects.create_user(username=u,email=e,first_name=f,last_name=l,password=p1)
+                    Usercat.objects.get_or_create(user=new_user,defaults={'role': 'applicant'})
+                    return redirect('/login/?role=applicant')
             else:
-                User.objects.create_user(username=u,email=e,first_name=f,last_name=l,password=p1)
-                return redirect('/login/')
+                return render(request,'registerapplicant.html',{'er':'Password not matching.'})
         else:
-            return render(request,'register.html',{'er':'Password not matching.'})
-    else:
-        return render(request,'register.html')
+            return render(request,'registerapplicant.html')
+    elif 'interviewer' in request.path:
+        if request.method=='POST':    
+                    f=request.POST['fname']
+                    l=request.POST['lname']
+                    e=request.POST['em']
+                    u=request.POST['uname']
+                    p1=request.POST['psw1']
+                    p2=request.POST['psw2']
+                    if p1==p2:
+                        if User.objects.filter(username=u).exists():
+                            return render(request,'registerinterviewer.html',{'er':'username taken'})
+                        elif User.objects.filter(email=e).exists():
+                            return render(request,'registerinterviewer.html',{'er':'email taken'})        
+                        else:
+                            new_user=User.objects.create_user(username=u,email=e,first_name=f,last_name=l,password=p1)
+                            Usercat.objects.get_or_create(user=new_user,defaults={'role': 'interviewer','company_id':'cid'})
+                            return redirect('/login/?role=interviewer')
+                    else:
+                        return render(request,'registerinterviewer.html',{'er':'Password not matching.'})
+        else:
+            return render(request,'registerinterviewer.html')
 
-def loginfn(request):
+def loginfn(request):   
     if request.method=='POST':
         u=request.POST['uname']
         p1=request.POST['psw1']
         x=auth.authenticate(username=u,password=p1)
         if x:
             auth.login(request,x)
-            return redirect('/')
+            us,_=Usercat.objects.get_or_create(user=request.user,defaults={ 'role':request.POST.get('role')})
+
+            if us.role=='applicant':
+               return render(request,'home.html')
+            else:
+                return render(request,'home.html')
+
+            
         else:
             return render(request,'login.html',{'er':'invalid credentials'})
     else:
+        # role = request.GET.get('role')
         return render(request,'login.html')
-    
+
+
+
+
 @login_required(login_url='/login')
 def addfn(request,t_name):
     request.session['t_name'] = t_name
@@ -65,6 +120,7 @@ def addfn(request,t_name):
         # print(form.errors) 
         if form.is_valid():
             form.save()
+
             #One-sentence summary: instance=resume isn't only "pre-fill with old data" — 
             # its real, constant job in both branches is "keep this form permanently tied to this exact one row," 
             # which matters every single time, not just when there's existing data to show.
@@ -162,15 +218,15 @@ def resumesfn(request):
 
 @xframe_options_exempt
 def resume1fn(request):
-    return render(request,'resume1.html')
+    return render(request,'resume1.html',{'is_pdf':True})
 
 @xframe_options_exempt
 def resume2fn(request):
-    return render(request,'resume2.html')
+    return render(request,'resume2.html',{'is_pdf':True})
 
 @xframe_options_exempt
 def resume3fn(request):
-    return render(request,'resume3.html')
+    return render(request,'resume3.html',{'is_pdf':True})
 
 
 def photofn(request):
@@ -207,13 +263,6 @@ def finishfn(request):
         return render(request,'resume3.html',{'pr':pr,'ph':ph,'ex':ex,'ed':ed,'sk':sk,'ints':ints,'xt':xt,'is_pdf':False})
     else:
         return render(request,'resumes.html',{'k':'select one template'})
-
-
-
-    
-
-
-
 
 
 def resume_pdf(request):
@@ -255,3 +304,14 @@ def resume_pdf(request):
 # HTML(string=html_string).write_pdf()   ← WeasyPrint just converts that already-processed HTML into a PDF
 #    ↓
 # pdf_bytes
+
+
+
+def dashboardfn(request):
+    return render(request,'dashboard.html')
+
+
+
+def jobsearchfn(request):
+    jobs=Job.objects.all()
+    return render(request,'jobposted.html',{'jobs':jobs})

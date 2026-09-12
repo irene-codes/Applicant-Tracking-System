@@ -52,4 +52,18 @@ class Photoform(forms.ModelForm):
     class Meta:
         model=Photo
         exclude=['user']
-        
+
+class Jobform(forms.ModelForm):
+    class Meta:
+        model=Job
+        exclude=['posted_by']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'input'}),
+            'description': forms.TextInput(attrs={'class': 'input'}),
+            'company': forms.TextInput(attrs={'class': 'input'}),
+            'location': forms.TextInput(attrs={'class': 'input'}),
+            'requirements': forms.TextInput(attrs={'class': 'input'}),
+            'responsibilities': forms.TextInput(attrs={'class': 'input'}),
+            'availability': forms.Select(attrs={'class': 'input'}),
+            'salary': forms.NumberInput(attrs={'class': 'input', 'step': '0.01'}),
+        }

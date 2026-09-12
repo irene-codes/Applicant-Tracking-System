@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/job.css'%}">
+{% endblock %}
+
+{%block content%}
+
+{% for i in form %}
+<div class="card mb-3 x">
+  <hr>
+  <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP_TYylhvrKQ8Q_rOQFkj9njEbAxffMxj4u_RBP4bobQ&s=10" style="height: 100px; width:50%" class="card-img-top" alt="..."> -->
+  <div class="card-body m">
+    <h5 class="card-title">{{i.title}}</h5>
+    <p class="card-text"> {{i.description}} </p>
+    <p class="card-text"> {{i.salary}} </p>
+    <p class="card-text"> {{i.location}} </p>
+
+    <a href="" class="btn btn-secondary"> {{i.company}} </a>
+
+    <!-- <a href="" class="btn btn-info">APPLY</a> -->
+    <p class="card-text"><small class="text-muted" > {{i.posted_by}} </small></p>
+  </div>
+</div>
+{% endfor %}
+
+
+
+
+{%endblock %}

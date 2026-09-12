@@ -1,5 +1,4 @@
 
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -15,8 +14,12 @@
 <body>
 
 {% if not is_pdf %}
-<a href="{% url 'resume_pdf' %}" style="position:fixed; top:1rem; right:1rem; background:#2563eb; color:white; padding:0.6rem 1.2rem; border-radius:6px; text-decoration:none; z-index:999; font-family:sans-serif;">
+<a href="{% url 'resume_pdf' %}" style="position:fixed; top:1rem; right:0.5rem; background:#2563eb; color:white; padding:0.6rem 1.2rem; border-radius:6px; text-decoration:none; z-index:999; font-family:sans-serif;">
    Download PDF
+   
+</a>
+<a href="/" style="position:fixed; top:1rem;left:0.5rem; background:#2563eb; color:white; padding:0.6rem 1.2rem; border-radius:6px; text-decoration:none; z-index:999; font-family:sans-serif">
+   Back
 </a>
 {% endif %}
     

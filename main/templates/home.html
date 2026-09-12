@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/home.css'%}">
+{% endblock %}
+
+
+{% block content %}
+<div class="card bg-dark text-white m ">
+  <img src="{% static 'images/home.png'%}" class="card-img" >
+  <div class="card-img-overlay s">
+    <h3 class="q">ATS Resume Checker</h3>
+    <p class="card-text y">Build your resume, then apply to real job openings —<br> get AI-powered feedback on how well you match</p>
+    <button class="c btn btn-primary" >Smart ATS Analysis</button>
+    <!-- <a href="">UPLOAD DETAILS</a> -->
+    <div class="g">
+        <!-- <button class="l btn btn-dark " >JOB OPENINGS</button> -->
+        <a href="/jobs/" class="l btn btn-dark ">BROWSE</a>
+        <p class="o">Build Your Resume. Find Your Fit.
+Create a standout resume in minutes <br>and get matched with roles across
+Software Development,<br> Data Science, Design, Marketing, and more.
+</p>
+        <p class="o">No matter your background, your next opportunity is one click away. <br> Click 'BROWSE' to explore roles matching your profile. </p>
+
+    </div>
+  </div>
+</div>
+
+{%endblock%}

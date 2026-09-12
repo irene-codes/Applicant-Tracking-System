@@ -5,7 +5,8 @@
 .expert {width: 90%;}
 
 * {box-sizing: border-box;}
-/* body {margin: 0 15%;} */
+body {margin: 0 15%;
+margin-top: 20px;}
 img {display:block;}
 hr {border-top: 1px rgb(30,30,30) solid; 
   width:100%; 
@@ -62,6 +63,13 @@ h4 {font-family:"Lato"; font-size: 0.9em; margin:0; font-style: italic; font-wei
   width:100%; 
   text-align: left;
   margin-bottom: 0.5vw;}
+
+.n{
+  height: 300px;
+  width: 300px;
+  
+}
+
 
 .flexContainer {
   display: flex;

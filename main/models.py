@@ -134,4 +134,22 @@ class Photo(models.Model):
 class Expertise(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    
+
+
+class Usercat(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    ROLE_CHOICES = [('applicant', 'Applicant'), ('interviewer', 'Interviewer')]
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    company_id=models.CharField(max_length=15,null=True,blank=True)
+
+class Job(models.Model):
+    title=models.CharField(max_length=50)
+    description=models.CharField(max_length=500)
+    company=models.CharField(max_length=50)
+    salary=models.DecimalField(decimal_places=4,max_digits=15)
+    location=models.CharField(max_length=40)
+    posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    JOB_CHOICES = [('','Select'),('fulltime', 'Full-time'), ('parttime', 'Part-time')]
+    responsibilities=models.CharField(max_length=1000,null=True,blank=True)
+    requirements=models.CharField(max_length=500,null=True,blank=True)
+    availability = models.CharField(max_length=20, choices=JOB_CHOICES,null=True,blank=True)

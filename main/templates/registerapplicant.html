@@ -18,7 +18,7 @@
 {% endif %}
 
 <div class="u">
-    <form class="fm"  action="/register/" method="POST">
+    <form class="fm"  action="/registerapplicant/" method="POST">
         {% csrf_token %}
         <input   class="form-control"type="text" name="fname"  placeholder="First name"><br>
         <input   class="form-control"type="text" name="lname"  placeholder="last name"><br>
@@ -34,7 +34,19 @@
         <div class="g">
             <p>Already have an account?</p>
             <input class="btn btn-primary"  type="submit" value="Log in" >
+
         </div>
+   </form>
+
+
+   <form action="/registerinterviewer/">
+    <div class="g">
+      <p>Register as Interviewer?</p>
+      <input class="btn btn-primary"  type="submit" value="Register" >
+
+    </div>
+ 
+
    </form>
 </div>
 

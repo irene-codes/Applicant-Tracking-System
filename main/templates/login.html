@@ -7,6 +7,9 @@
 
 
 {%block content%}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+
 <h2 class="lu">LOGIN PAGE</h2>
 {% if er%}
 <div class="kl">
@@ -19,18 +22,78 @@
 {% endif %}
 
 <div class="f">
-    
-    <form action="/login/" class="fm" method="POST">
+    <div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link tab" id="applicant-tab" data-role="applicant" aria-current="true" href="#">Applicant</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link tab" id="interviewer-tab" data-role="interviewer" aria-current="true" href="#">Interviewer</a>
+      </li>
+
+
+    </ul>
+  </div>
+  <div class="card-body">
+        <form action="/login/" class="fm" method="POST">
     {% csrf_token %}
-        <input class="k" type="text" name="uname"  placeholder="username" id="">
+        <div class="input-wrapper">
+          <i class="bi bi-person-circle "></i>
+          <input class="k" type="text" name="uname"  placeholder="username" id="">
+        </div>
+        <div class="input-wrapper">
+          <i class="bi bi-lock"></i>
         <input class="k" type="password" name="psw1" placeholder="password" id="">
-        <button type="submit" class="btn btn-primary">Log in</button>
+        </div>
+          <input type="hidden" name="role" id="role" value="applicant">
+          <button type="submit" class="btn btn-primary " id="k">Log in</button>
+
+        
+        
     </form>
-    <form action="/register/" class="l">
+
+    <form action="/registerapplicant/" class="l">
         <p>Doesn't have an account?</p>
         <button class="btn btn-info">Register</button>
     </form>
+
+  </div>
 </div>
 
 
+
+
+
+</div>
+
+
+<script>
+  const tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){
+      let role = this.dataset.role
+      tabs.forEach(function(current_element) {
+        current_element.classList.remove('active');
+      });
+      this.classList.add('active');
+      document.getElementById('role').value = role;
+      if(role == 'applicant'){
+        document.getElementById('k').textContent="Log in as applicant"
+      }
+      else{
+        document.getElementById('k').textContent="Log in as interviewer"
+      }
+      
+     
+  })
+  })
+
+</script>
+
 {%endblock%}
+
+
+ 
+
+ 

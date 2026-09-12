@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{%block style%}
+<link rel="stylesheet" href="{% static 'css/jobinap.css'  %}">
+{%endblock %}
+
+{%block content%}
+<div  class="j" >
+    <div  style="color: red;">{{ form.errors }}</div> 
+    <form class="o"  method="post" action="/jobs/" enctype="multipart/form-data">
+    {%csrf_token%}
+            <div class="card border-info mb-3 l ">
+            <div class="card-header b">    
+                    <div class="row">
+                    {% for field in form %}
+                            <div class="col-md-6 p ">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            </div>
+                    {% endfor %}
+                    </div>
+            </div>
+            <div class="card-body">
+            <input type="submit" name="" id="" class="btn btn-primary c" value=" Save">
+            </div>               
+        </div>
+    </form>
+</div>
+
+{%endblock %}

@@ -1,0 +1,65 @@
+.c{
+    width: 150px;
+
+}
+
+.j{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 40px;
+   
+    
+}
+.card-header{
+    margin-top: 15px;
+}
+
+body{
+    width: 100%;
+    background-color: rgb(17, 74, 88);
+}
+
+.l{
+    width: 100%; 
+    min-height: 400px; 
+    border: solid;
+    background-color: rgb(150, 178, 185);
+    
+}
+.b{
+    padding-top: 5px;
+    padding-bottom: 3px;
+}
+
+/* .k{
+    width: 400px;
+    min-height: 400px;
+} */
+
+
+.input{
+
+    width: 100%;
+    padding-top: 5px;
+   
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.o{
+    
+   
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: solid;
+    border-radius: 5px;
+    border-color: aliceblue;
+    height: 60%;
+    width: 60%;
+    margin: auto;
+    background-color: rgb(213, 205, 205);    
+}

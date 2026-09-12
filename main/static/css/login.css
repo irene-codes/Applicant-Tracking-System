@@ -2,11 +2,11 @@
     display: flex;
     flex-direction: column;
     margin-top: 3px;
-    border: solid;
+    /* border: solid; */
     padding: 20px;
     width: fit-content;
-    border-radius: 5px;
-    background-color: rgb(146, 195, 221);
+    /* border-radius: 5px; */
+    /* background-color: rgb(214, 224, 229); */
 /* The rule: justify-content always aligns along the main axis, and align-items always aligns along the cross axis */
 /* flex-direction	main axis	cross axis
 row (default)	horizontal →	vertical ↕
@@ -14,7 +14,8 @@ column (yours)	vertical ↕	horizontal → */
 }
 .k{
     margin-bottom: 15px;
-    background-color: rgb(220, 226, 228);
+    background-color: rgb(215, 243, 252);
+    border: none;
 }
 .f{
     display: flex;
@@ -22,9 +23,10 @@ column (yours)	vertical ↕	horizontal → */
     justify-content: center;
     flex-direction: column;
     
+    
 }
 body{
-    background-color: rgb(168, 213, 221);
+    background-color: rgb(2, 24, 44);
 }
 .l{
     margin-top: 12px;
@@ -34,7 +36,7 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    color: rgb(9, 12, 55);
+    color: rgb(219, 220, 230);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-top: 40px;
    
@@ -45,4 +47,33 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+.input-wrapper{
+    position: relative;
+    border: solid;
+    border-color: rgb(199, 220, 220);
+    background-color: rgb(160, 212, 223);
+    display: flex;
+    /* align-items: center; */
+     gap: 8px; 
+     padding-left: 8px;
+     width: 200px; 
+     margin-bottom: 10px;
+     
+
+}
+.input-wrapper i{
+    padding-top: 4px;
+}
+.input-wrapper input {
+  border: none;
+  background: transparent;
+  margin-bottom: 7px;
+
+
+}
+
+
+
+
 

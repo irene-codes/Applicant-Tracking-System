@@ -12,17 +12,29 @@
     overflow: hidden;      /* important: clips the shrunk iframe cleanly */
     height: 450px;          /* fixed height for the visible box */
     border: solid;
-    border-color: rgb(70, 136, 144);
+    border-color: rgb(169, 206, 210);
 }
 
 .template-frame {
     width: 1200px;           /* the resume's real, natural width */
     height: 1500px;         /* the resume's real, natural height  */
     border: 1px solid #ccc;
-    transform: scale(0.3);        /* shrinks the WHOLE rendered page down */
+    transform: scale(0.3,0.33);        /* shrinks the WHOLE rendered page down */
     transform-origin: top left;   /* shrinks from the top-left corner, not center */
     pointer-events: none;         /* stops accidental clicks/scrolling inside preview */
 }
 .lo{
     margin-top: 5px;
+}
+.jo{
+    background-color: rgb(222, 225, 237);
+    flex: 1;
+}
+.jk{
+    width: 97%;
+    margin-top: 3px;
+    margin-bottom: 0px;
+    border-radius: 5px;
+    background-color: rgb(197, 222, 227);
+
 }

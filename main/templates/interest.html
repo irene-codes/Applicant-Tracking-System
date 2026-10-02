@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block resume_content %}
+<div class="hi">
 <button type="button" id="add-interest-btn" class="btn btn-secondary">+ Add More Interests</button>
 <div class="z">
     <form  class="l" method="post" action="/interest/" enctype="multipart/form-data">
@@ -30,6 +31,8 @@
     </form>
 
 </div>
+</div>
+
 <script>
    document.getElementById('add-interest-btn').addEventListener('click',function(){
         const container=document.getElementById('interest-forms-container');

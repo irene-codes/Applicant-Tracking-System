@@ -46,8 +46,30 @@ class EducationForm(forms.ModelForm):
 # col-md-3 four times → 3+3+3+3 = 12 → each takes exactly 1/4 of the row
 
 
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model=UserProfile
+        exclude=['user']
+        widgets={
+            'gender':forms.RadioSelect
+        }
 
+class ApplicantForm(UserProfileForm):
+    class Meta(UserProfileForm.Meta):
+        exclude=UserProfileForm.Meta.exclude + ['company_name']
 
+class InterviewerForm(UserProfileForm):
+    company_name=forms.CharField(max_length=100,required=True)
+
+class UserForm(forms.ModelForm):
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    class Meta:
+        model=User
+        fields=['first_name','last_name','email','username','password']
+        widgets={
+            'password':forms.PasswordInput()
+        }
+        
 class Photoform(forms.ModelForm):
     class Meta:
         model=Photo
@@ -62,8 +84,30 @@ class Jobform(forms.ModelForm):
             'description': forms.TextInput(attrs={'class': 'input'}),
             'company': forms.TextInput(attrs={'class': 'input'}),
             'location': forms.TextInput(attrs={'class': 'input'}),
-            'requirements': forms.TextInput(attrs={'class': 'input'}),
+            'requirements': forms.TextInput(attrs={'class': 'input','placeholder':'E:g. Python,Django,SQL,Git'}),
             'responsibilities': forms.TextInput(attrs={'class': 'input'}),
             'availability': forms.Select(attrs={'class': 'input'}),
             'salary': forms.NumberInput(attrs={'class': 'input', 'step': '0.01'}),
+        }
+    def clean_requirements(self):
+        data=self.cleaned_data['requirements']
+        if len(data.split(',')) <2:
+            raise forms.ValidationError("Please enter skills seperated by comma")
+        skill=[s.strip() for s in data.split(',')]
+        #data.split(',') runs first. It splits the string wherever a comma appears
+        cleaned=', '.join(skill)
+        return cleaned
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['message']
+        widgets = {
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 6,
+                'maxlength': 2000,
+                'placeholder': 'Tell us what went well or what we can improve...',
+            }),
         }

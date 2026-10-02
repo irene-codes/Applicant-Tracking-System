@@ -5,8 +5,9 @@
 .expert {width: 90%;}
 
 * {box-sizing: border-box;}
-body {margin: 0 15%;
-margin-top: 20px;}
+/* body {
+
+} */
 img {display:block;}
 hr {border-top: 1px rgb(30,30,30) solid; 
   width:100%; 
@@ -212,6 +213,9 @@ h4 {font-family:"Lato"; font-size: 0.9em; margin:0; font-style: italic; font-wei
          letter-spacing: 0.05em;
 }
 
+.nk{
+  background-color: azure;
+}
 
 
 

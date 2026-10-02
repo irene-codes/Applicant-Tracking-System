@@ -3,6 +3,18 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
 
+class UserProfile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    phone_no=models.CharField(max_length=15,null=True,blank=True)
+    GENDER_CHOICES=[
+        ('M','Male'),
+        ('F','Female')
+    ]
+    gender=models.CharField(max_length=1, choices=GENDER_CHOICES,null=True,blank=False,default='F')
+    city=models.CharField(max_length=100,null=True,blank=True)
+    country=CountryField(null=True,blank=True)
+    company_name = models.CharField(max_length=100, blank=True, null=True)
+
 
 class Resume(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
@@ -146,10 +158,57 @@ class Job(models.Model):
     title=models.CharField(max_length=50)
     description=models.CharField(max_length=500)
     company=models.CharField(max_length=50)
-    salary=models.DecimalField(decimal_places=4,max_digits=15)
+    salary=models.DecimalField(decimal_places=2,max_digits=20)
     location=models.CharField(max_length=40)
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
     JOB_CHOICES = [('','Select'),('fulltime', 'Full-time'), ('parttime', 'Part-time')]
     responsibilities=models.CharField(max_length=1000,null=True,blank=True)
-    requirements=models.CharField(max_length=500,null=True,blank=True)
+    requirements=models.CharField(max_length=500,null=False,blank=False,default='')
     availability = models.CharField(max_length=20, choices=JOB_CHOICES,null=True,blank=True)
+
+
+class Application(models.Model):
+    applicant=models.ForeignKey(User,on_delete=models.CASCADE)
+    # (many applications can point to the same user)
+    job=models.ForeignKey(Job,on_delete=models.CASCADE)
+    #(many applications can point to the same job)
+    #applicant = ForeignKey(User) → answers "who applied?"
+    # job = ForeignKey(Job) → answers "to what did they apply?"
+    class Meta:
+        unique_together = ('applicant', 'job')
+    applied_on = models.DateTimeField(auto_now_add=True)
+    STATUS_CHOICES = [
+        ('applied', 'Applied'),
+        ('shortlisted', 'Shortlisted'),
+        ('rejected', 'Rejected'),
+        ('accepted', 'Accepted'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='applied')
+    match_score=models.FloatField(null=True,blank=True)
+    recommended=models.BooleanField(default=False)
+    RESUME_TEMPLATE_CHOICES = [
+        ('professional1', 'Professional 1'),
+        ('professional2', 'Professional 2'),
+        ('professional3', 'Professional 3'),
+    ]
+    resume_template = models.CharField(
+        max_length=20,
+        choices=RESUME_TEMPLATE_CHOICES,
+        blank=True,
+        default='',
+    )
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='feedback_entries')
+    message = models.TextField(max_length=2000)
+    submitted_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-submitted_on']
+
+    def __str__(self):
+        return f'Feedback from {self.user.username}'
+
+
+    

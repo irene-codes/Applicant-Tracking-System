@@ -7,33 +7,52 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/resumes2.css'%}">
 </head>
-
+ 
 </html>
-
+ 
 <body>
-
-<div class="kol">
+<div class="ke">
+  {% if interviewer_view %}
+  <a href="/candidates/{{ job.id }}/" style="position:fixed; top:1rem; left:0.5rem; background:#2563eb; color:white; padding:0.6rem 1.2rem; border-radius:6px; text-decoration:none; z-index:999; font-family:sans-serif">Back to candidates</a>
+  {% endif %}
+  <div class="kol">
     <div class="resume-container">
   <div class="resume-row-intro">
     <div class="intro-section">
       <div class="left-intro-content">
-        <p><i class="fa fa-user-circle" aria-hidden="true"></i>Sourabh Gupta</p>
-        <p><i class="fa fa-mobile" aria-hidden="true"></i>+91 9858674841</p>
-        <p><i class="fa fa-envelope" aria-hidden="true"></i><a href="sourabhgupta.rp@gmail.com" class="self-mail">sourabhgupta.rp@gmail.com</a></p>
+        <p><i class="fa fa-user-circle" aria-hidden="true"></i>
+          {% if pr.first_name or pr.last_name %}{{ pr.first_name }} {% if pr.middle_name %}{{ pr.middle_name }}{% endif %} {{ pr.last_name }}{% else %}{{ pr.user.get_full_name|default:pr.user.username }}{% endif %}
+        </p>
+        <p><i class="fa fa-mobile" aria-hidden="true"></i>{% if pr.phone %}{{ pr.phone }}{% else %}+91 9858674841{% endif %}</p>
+        <p><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:{% if pr.email %}{{ pr.email }}{% else %}sourabhgupta.rp@gmail.com{% endif %}" class="self-mail">{% if pr.email %}{{ pr.email }}{% else %}sourabhgupta.rp@gmail.com{% endif %}</a></p>
       </div>
       <div class="right-intro-content">
+        {% if xt %}
+            {% for i in xt %}
+            <p><i class="fa fa-tag" aria-hidden="true"></i>{{ i.name }}</p>
+            {% endfor %}
+        {% else %}
         <p><i class="fa fa-tag" aria-hidden="true"></i>Microsoft Certified UI Developer</p>
         <p><i class="fa fa-tag" aria-hidden="true"></i>Email Developer</p>
+        {% endif %}
       </div>
     </div>
     <div class="image-section">
-      <img src="https://assets.codepen.io/4757028/internal/avatars/users/default.png?format=auto&height=512&version=1599391596&width=512" width="200" alt="My photo">
+      <img src="{% if ph.photoup %}{{ ph.photoup.url }}{% else %}https://assets.codepen.io/4757028/internal/avatars/users/default.png?format=auto&height=512&version=1599391596&width=512{% endif %}" width="200" alt="My photo">
     </div>
   </div>
   <div class="resume-row">
     <div class="experience">
       <h3 class="resume-subheading">Experience<i class="fas fa-briefcase" aria-hidden="true"></i></h3>
       <ul class="content-list">
+        {% if ex %}
+            {% for e in ex %}
+            <li>
+              <p class="year">{% if e.start_date %}{{ e.start_date }}{% else %}Fresher{% endif %}{% if e.end_date %} - {{ e.end_date }}{% else %} - now{% endif %}</p>
+              <p class="title">{{ e.job_title }}</p>
+            </li>
+            {% endfor %}
+        {% else %}
         <li>
           <p class="year">2020</p>
           <p class="title">Principal Software Engineer</p>
@@ -54,11 +73,20 @@
           <p class="year">2013-2014</p>
           <p class="title">Trainee Software Engineer</p>
         </li>
+        {% endif %}
       </ul>
     </div>
     <div class="education">
       <h3 class="resume-subheading">Education<i class="fas fa-graduation-cap" aria-hidden="true"></i></h3>
       <ul class="content-list">
+        {% if edu %}
+            {% for ed in edu %}
+            <li>
+              <p class="year">{{ ed.school_name }} {% if ed.graduation_start_date %}({{ ed.graduation_start_date }} - {{ ed.graduation_end_date }}){% endif %}</p>
+              <p class="title">{{ ed.select_a_degree }} {{ ed.field_of_study }}</p>
+            </li>
+            {% endfor %}
+        {% else %}
         <li>
           <p class="year">University of Jammu (2010 - 2013)</p>
           <p class="title">Masters of Computer Applications</p>
@@ -71,6 +99,7 @@
           <p class="year">JKBOSE (2005 - 2007)</p>
           <p class="title">Higher Secondary</p>
         </li>
+        {% endif %}
       </ul>
     </div>
   </div>
@@ -78,6 +107,11 @@
     <div class="skills">
       <h3 class="resume-subheading">Skills<i class="fas fa-cog" aria-hidden="true"></i></h3>
       <ul class="content-list">
+        {% if sk %}
+            {% for i in sk %}
+            <li>{{ i.skill }}</li>
+            {% endfor %}
+        {% else %}
         <li>HTML5</li>
         <li>CSS3</li>
         <li>JavaScript</li>
@@ -86,6 +120,7 @@
         <li>BootStrap and Foundation</li>
         <li>Responsive Web Designing</li>
         <li>Email Development</li>
+        {% endif %}
       </ul>
     </div>
     <div class="work-done">
@@ -118,15 +153,23 @@
     <div class="interests">
       <h3 class="resume-subheading">Interests<i class="fas fa-tasks" aria-hidden="true"></i></h3>
       <ul class="content-list">
+        {% if it %}
+            {% for i in it %}
+            <li>{{ i.Hobbies }}</li>
+            {% endfor %}
+        {% else %}
         <li>Cricket(both playing and watching)</li>
         <li>Spending time on Quora</li>
         <li>Video Games</li>
         <li>Watching Movies</li>
+        {% endif %}
       </ul>
     </div>
   </div>
 </div>
-
+ 
 </div>
-
+</div>
+ 
+ 
 </body>

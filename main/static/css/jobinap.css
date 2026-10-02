@@ -1,65 +1,87 @@
 .c{
     width: 150px;
-
+    border-radius: 9px;
+    font-weight: 600;
 }
 
-.j{
+.job-form-layout{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    flex-direction: row;
-    margin-top: 40px;
-   
-    
-}
-.card-header{
-    margin-top: 15px;
+    margin: 0 auto;
+    padding: 48px 24px;
 }
 
-body{
-    width: 100%;
-    background-color: rgb(17, 74, 88);
+.fa .card-header{
+    margin-top: 0;
+    padding: 24px;
+    border: 0;
+    background: #edf6ff;
 }
 
 .l{
-    width: 100%; 
-    min-height: 400px; 
-    border: solid;
-    background-color: rgb(150, 178, 185);
-    
-}
-.b{
-    padding-top: 5px;
-    padding-bottom: 3px;
-}
-
-/* .k{
-    width: 400px;
-    min-height: 400px;
-} */
-
-
-.input{
-
     width: 100%;
-    padding-top: 5px;
-   
-    margin-top: 5px;
-    margin-bottom: 5px;
+    min-height: 0;
+    border: 1px solid #b8d4ee !important;
+    border-radius: 16px;
+    background-color: #fff;
+    box-shadow: 0 12px 30px rgba(38, 77, 117, 0.12);
+    overflow: hidden;
+}
+
+.b{
+    padding: 0;
+}
+
+.fa .input{
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 12px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    border: 1px solid #bfd4e8;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #1e293b;
+}
+
+.fa .input:focus{
+    border-color: #6fa8dc;
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(111, 168, 220, 0.2);
 }
 
 .o{
-    
-   
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: solid;
-    border-radius: 5px;
-    border-color: aliceblue;
-    height: 60%;
-    width: 60%;
-    margin: auto;
-    background-color: rgb(213, 205, 205);    
+    width: min(880px, 100%);
+    padding: 0;
+    border: 0;
+    border-radius: 16px;
+    background-color: transparent;
+}
+
+.fa .card-body{
+    padding: 22px 24px 24px;
+    background: #fff;
+}
+
+.fa label{
+    color: #334155;
+    font-weight: 600;
+}
+
+.fa{
+    flex: 1;
+    min-height: 100vh;
+    background-color: #d0e5f8;
+}
+
+@media (max-width: 640px){
+    .job-form-layout{
+        padding: 28px 16px;
+    }
+
+    .fa .card-header,
+    .fa .card-body{
+        padding: 18px;
+    }
 }

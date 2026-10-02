@@ -5,7 +5,7 @@
     border-radius: 10px;
     border-style: solid;
     
-    border-color: rgb(89, 89, 138);
+    border-color: rgb(128, 128, 183);
     padding-right: 10px;
     padding-left: 10px;
     padding-top: 10px;
@@ -13,26 +13,28 @@
     background-color: rgb(151, 186, 213);
 }
 .g{
-    margin-left: 40%;
+    margin-left: 4%;
     margin-top: 3px;
     display: flex;
-    align-items: center; /* align items vertical */
-    /* flex-direction: column; */
+    align-items: center; 
+    flex-direction: column;
     gap: 5px;
     color: white;
 }
-body{
-    background-color: rgb(27, 31, 69);
+.reg-wrapper{
+    background-color: rgb(5, 5, 37);
+    flex: 1;
+    
 }
 
 .j{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    /* flex-direction: column; */
     color: rgb(226, 226, 231);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 .fo{
     
@@ -48,4 +50,21 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+input,select,textarea{
+    width: 100%;
+}
+.pa{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+#id_gender{
+    display:flex;
+    align-items:center;
+}
+.hh{
+    margin-top:10px;
 }

@@ -1,0 +1,24 @@
+<article class="job-summary-card">
+  <div class="job-summary-main">
+    <h2><a href="{% url 'job_detail' i.id %}">{{ i.title }}</a></h2>
+    <p class="job-company">{{ i.company }}</p>
+    <div class="job-summary-meta">
+      <span>Posted by <strong>{{ i.posted_by.get_full_name|default:i.posted_by.username }}</strong></span>
+      <span>{{ i.get_availability_display|default:"Availability not specified" }}</span>
+      <span>Salary: {{ i.salary|floatformat:2 }}</span>
+    </div>
+  </div>
+  <div class="job-summary-actions">
+    <a class="btn btn-primary" href="{% url 'job_detail' i.id %}">Know more</a>
+    {% if request.user == i.posted_by %}
+      <form method="post" action="{% url 'job_delete' i.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger">Delete</button>
+      </form>
+      <a class="btn btn-outline-success" href="{% url 'job_candidates' i.id %}">Candidates</a>
+      <a class="btn btn-outline-secondary" href="{% url 'editjob' i.id %}">Edit</a>
+    {% elif i.id in applied_job_ids %}
+      <span class="btn btn-success" aria-label="Application submitted">Applied</span>
+    {% endif %}
+  </div>
+</article>

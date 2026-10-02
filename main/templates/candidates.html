@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/candidate.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="wrapper_full">
+<div class="wrapper">
+<div class="candidates-page">
+    <h1 class="job-title">{{ job.title }} Candidates</h1>
+
+    <div class="candidates-columns">
+        <div class="candidate-section">
+            <h2>Recommended</h2>
+            {% if recommended_candidates %}
+                {% for candidate in recommended_candidates %}
+                    <div class="candidate-card recommended">
+                        <div class="candidate-profile">
+                            {% if candidate.photo_url %}
+                                <img src="{{ candidate.photo_url }}" alt="{{ candidate.display_name }}" class="candidate-photo">
+                            {% else %}
+                                <div class="candidate-photo fallback">{{ candidate.display_name|slice:":1"|upper }}</div>
+                            {% endif %}
+                            <div class="candidate-info">
+                                <div class="candidate-name">{{ candidate.display_name }}</div>
+                            </div>
+                            <div class="score-ring recommended-score" style="--score: {{ candidate.match_score|default:0 }}%;" role="img" aria-label="ATS score {{ candidate.match_score|default:0|floatformat:0 }} percent">
+                                <div class="score-ring-center">
+                                    <strong>{{ candidate.match_score|default:0|floatformat:0 }}%</strong>
+                                    <span>ATS Score</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="candidate-badge recommended-badge">Recommended</div>
+                        <div class="candidate-actions">
+                            <span class="current-status">Status: {{ candidate.get_status_display }}</span>
+                            {% if candidate.resume_template %}<a class="btn btn-outline-primary" href="{% url 'applicant_resume' candidate.id %}" target="_blank" rel="noopener">View resume</a>{% else %}<span class="resume-unavailable">No resume template saved</span>{% endif %}
+                            <form method="post" action="{% url 'application_status' candidate.id %}" class="status-actions">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-success" name="status" value="shortlisted" type="submit">Shortlisted</button>
+                                <button class="btn btn-outline-danger" name="status" value="rejected" type="submit">Rejected</button>
+                                <button class="btn btn-success" name="status" value="accepted" type="submit">Accepted</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="empty-state">No recommended candidates.</p>
+            {% endif %}
+        </div>
+
+        <div class="candidate-section">
+            <h2>Non Recommended</h2>
+            {% if non_recommended_candidates %}
+                <div class="bulk-candidate-actions">
+                    <label class="select-all-label" for="select-all-nonrecommended">
+                        <input type="checkbox" id="select-all-nonrecommended">
+                        Select all
+                    </label>
+                    <form method="post" action="{% url 'bulk_reject_applications' job.id %}" id="bulk-reject-form">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Reject</button>
+                    </form>
+                </div>
+                {% for candidate in non_recommended_candidates %}
+                    <div class="candidate-card not-recommended">
+                        <div class="candidate-profile">
+                            {% if candidate.photo_url %}
+                                <img src="{{ candidate.photo_url }}" alt="{{ candidate.display_name }}" class="candidate-photo">
+                            {% else %}
+                                <div class="candidate-photo fallback">{{ candidate.display_name|slice:":1"|upper }}</div>
+                            {% endif %}
+                            <div class="candidate-info">
+                                <div class="candidate-name">{{ candidate.display_name }}</div>
+                            </div>
+                            <div class="score-ring non-recommended-score" style="--score: {{ candidate.match_score|default:0 }}%;" role="img" aria-label="ATS score {{ candidate.match_score|default:0|floatformat:0 }} percent">
+                                <div class="score-ring-center">
+                                    <strong>{{ candidate.match_score|default:0|floatformat:0 }}%</strong>
+                                    <span>ATS Score</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="candidate-badge not-recommended-badge">Not Recommended</div>
+                        <div class="candidate-actions">
+                            <label class="select-candidate-label">
+                                <input class="nonrecommended-checkbox" form="bulk-reject-form" type="checkbox" name="application_ids" value="{{ candidate.id }}">
+                                Select
+                            </label>
+                            <span class="current-status">Status: {{ candidate.get_status_display }}</span>
+                            {% if candidate.resume_template %}<a class="btn btn-outline-primary" href="{% url 'applicant_resume' candidate.id %}" target="_blank" rel="noopener">View resume</a>{% else %}<span class="resume-unavailable">No resume template saved</span>{% endif %}
+                            <form method="post" action="{% url 'application_status' candidate.id %}" class="status-actions">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-success" name="status" value="shortlisted" type="submit">Shortlisted</button>
+                                <button class="btn btn-outline-danger" name="status" value="rejected" type="submit">Rejected</button>
+                                <button class="btn btn-success" name="status" value="accepted" type="submit">Accepted</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="empty-state">No non-recommended candidates.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectAll = document.getElementById('select-all-nonrecommended');
+        const candidateBoxes = document.querySelectorAll('.nonrecommended-checkbox');
+        if (!selectAll) return;
+
+        selectAll.addEventListener('change', function () {
+            candidateBoxes.forEach(function (checkbox) {
+                checkbox.checked = selectAll.checked;
+            });
+        });
+
+        candidateBoxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                selectAll.checked = Array.from(candidateBoxes).every(function (item) {
+                    return item.checked;
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

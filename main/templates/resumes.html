@@ -10,11 +10,11 @@
     {{k}}
 {% endif %}
 
-
-<div class="templates">
+<div class="jo">
+    <div class="templates">
     
     <div class="wrap1">
-        <p >Professional1 </p>
+        <button class="jk">Graphics</button>
         <div class="template123">
             <iframe src="{% url 'preview1' %}" class="template-frame" frameborder="0"></iframe>
             
@@ -25,7 +25,7 @@
     
     
     <div class="wrap2">
-        <p>Professional2 </p>
+         <button class="jk">Social</button>
         <div class="template123">
             <iframe src="{% url 'preview2' %}" class="template-frame" frameborder="0"></iframe>
         </div>
@@ -35,7 +35,7 @@
     </div>
 
    <div class="wrap2">
-    <p>Professional3 </p>
+    <button class="jk">General ATS</button>
         
      <div class="template123">
         <iframe src="{% url 'preview3' %}" class="template-frame" frameborder="0"></iframe>
@@ -43,4 +43,6 @@
     <a href="/add/professional3"  class="btn btn-primary lo"> Select</a>
    </div>
 </div>
+</div>
+
 {% endblock %}

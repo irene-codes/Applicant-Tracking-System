@@ -7,40 +7,71 @@
   <link rel="stylesheet" href="{% static 'css/register.css'%}">
 {% endblock %}
 
+
+
+<div class="reg-wrapper">
 <h3 class="j">REGISTER  PAGE</h3>
-{% if er %}
-  <div class="kl">
-    <div  class="alert alert-primary fo" role="alert">
-      {{er}}
-    </div>
+
+
+
+<form class="fm"  action="/registerapplicant/" method="POST">
+  {% csrf_token %}
+  <div class="row">
+  {% for i in u %}
+    {% if i.name == 'email'%}
+     <div class="col-md-12">
+        {{i.label_tag}}
+        {{i}}
+
+     </div>
+     {% elif i.name == 'first_name' or i.name == 'last_name' or i.name == 'username'%}
+       <div class="col-md-6">
+        {{i.label_tag}}
+        {{i}}
+       </div>
+       
+    {% endif %}
+  {% endfor %}
+  {% for i in p%}
+  {% if i.name == 'gender' or i.name == 'company_name'%}
+  <div class="col-md-12">
+    {{i.label_tag}}
+    {{i}}
   </div>
 
-{% endif %}
+ {% else %}
+  <div class="col-md-6">
+    {{i.label_tag}}
+    {{i}}
+  </div>
+  {% endif %}
+  
+  {% endfor %}
 
-<div class="u">
-    <form class="fm"  action="/registerinterviewer/" method="POST">
-        {% csrf_token %}
-        <input   class="form-control"type="text" name="cid"  placeholder="Company ID"><br>
+  {% for i in u%}
+  {%  if i.name == 'password' or i.name == 'confirm_password'%}
+  <div class="col-md-6">
+    {{i.label_tag}}
+    {{i}}
+  </div>
+  {% endif %}
+  {% endfor %}
 
-        <input   class="form-control"type="text" name="fname"  placeholder="First name"><br>
-        <input   class="form-control"type="text" name="lname"  placeholder="last name"><br>
-
-        <input  class="form-control"type="email" name="em" placeholder="email"><br>
-        <input  class="form-control"type="text" name="uname" placeholder="username"><br>
-        <input class="form-control" type="password" name="psw1" placeholder="Password"><br>
-        <input class="form-control" type="password" name="psw2" placeholder="Confirm password"><br>
-        <input class="form-control btn-primary"  type="submit" value="Register" ><br>
-        
-   </form>
-   <form action="/login/?role=interviewer">
-        <div class="g">
-            <p>Already have an account?</p>
-            <input class="btn btn-primary"  type="submit" value="Log in" >
-        </div>
-   </form>
 </div>
+  <input class="form-control btn-primary hh"  type="submit" value="Register" >
+  <hr>
+  <div class="pa">
+      <p>Register as an applicant?</p>
+      <a href="/registerapplicant/">Register</a>
+  </div>
+  
+  <div class="pa">
+     <p>Already have an account?</p>
+     <a href="/login/">Login</a>
+  </div>
+</form>
 
 
-
+</div>
 
 {%endblock%}

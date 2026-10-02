@@ -6,11 +6,12 @@
 {%endblock %}
 
 {%block content%}
-<div  class="j" >
+<div class="fa">
+<div class="job-form-layout">
     <div  style="color: red;">{{ form.errors }}</div> 
-    <form class="o"  method="post" action="/jobs/" enctype="multipart/form-data">
+    <form class="o"  method="post" action="" enctype="multipart/form-data">
     {%csrf_token%}
-            <div class="card border-info mb-3 l ">
+            <div class="card border-info mb-1 l ">
             <div class="card-header b">    
                     <div class="row">
                     {% for field in form %}
@@ -27,5 +28,7 @@
         </div>
     </form>
 </div>
+</div>
+
 
 {%endblock %}

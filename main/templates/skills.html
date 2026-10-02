@@ -8,9 +8,11 @@
 
 
 {% block resume_content %}
-<button type="button" id="add-skill-btn" class="btn btn-secondary">+ Add More Skills</button>
+<div>
+    <button type="button" id="add-skill-btn" class="btn btn-secondary">+ Add More Skills</button>
 <div class="z">
     <form  class="l" method="post" action="/skills/" enctype="multipart/form-data">
+
     {%csrf_token%}
     {{ formset.management_form }}
         <div id="skill-forms-container">
@@ -38,6 +40,8 @@
     </form>
 
 </div>
+</div>
+
 <script>
    document.getElementById('add-skill-btn').addEventListener('click',function(){
         const container=document.getElementById('skill-forms-container');
@@ -56,6 +60,20 @@
         }
     });
 });
+
+          // NEW: clear the hidden id field, so this isn't mistaken for an existing row
+        newform.querySelectorAll('input[type="hidden"]').forEach(function(el) {
+            if (el.name.endsWith('-id')) {
+                el.value = '';
+            }
+        });
+            // NEW: clear the visible fields, so the new row starts blank
+        newform.querySelectorAll('input[type="text"], input[type="number"]').forEach(function(el) {
+            el.value = '';
+        });
+        newform.querySelectorAll('select').forEach(function(el) {
+            el.selectedIndex = 0;
+        });
 
 });
 </script>

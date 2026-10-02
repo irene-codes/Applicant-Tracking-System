@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .feedback-page {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    margin: 0 auto;
+    padding: 40px 20px;
+    background: var(--page-background, #d0e5f8);
+  }
+  .feedback-card {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  }
+  .feedback-card h1 {
+    margin-bottom: 8px;
+    color: #172554;
+    font-size: 30px;
+    font-weight: 700;
+  }
+  .feedback-card p {
+    margin-bottom: 24px;
+    color: #64748b;
+  }
+  .feedback-card label {
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .feedback-card textarea {
+    min-height: 180px;
+    resize: vertical;
+  }
+  @media (max-width: 576px) {
+    .feedback-card { padding: 22px; }
+  }
+</style>
+<div class="feedback-page">
+  <section class="feedback-card">
+    <h1>Share your feedback</h1>
+    <p>Your comments help us improve the applicant and interviewer experience.</p>
+    {% if submitted %}
+      <div class="alert alert-success" role="status">Thanks—your feedback has been submitted.</div>
+    {% endif %}
+    <form method="post" action="{% url 'feedback' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.message.label_tag }}
+        {{ form.message }}
+        {% for error in form.message.errors %}<div class="text-danger mt-1">{{ error }}</div>{% endfor %}
+      </div>
+      <button class="btn btn-primary" type="submit">Submit feedback</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

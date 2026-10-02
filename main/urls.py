@@ -2,14 +2,21 @@ from django.urls import path
 from main.views import *
 urlpatterns=[
    path('',homefn),
-  
    path('dashboard/',dashboardfn),
+   path('feedback/', feedbackfn, name='feedback'),
    path('add/<str:t_name>',addfn,name='profile'),
+   path('jobs/<int:e_id>/edit/', editfn, name='editjob'),
    path('jobs/',jobfn),
+   path('delete/<int:j_id>',deletefn,name='job_delete'),
    path('jobsearch/',jobsearchfn),
+   path('job/<int:job_id>/', job_detail_fn, name='job_detail'),
    path('registerinterviewer/',registerfn),
    path('registerapplicant/',registerfn),
-
+   path('application/<int:job_id>',applicationfn,name='apply_job'),
+   path('candidates/<int:job_id>/',candidatefn,name='job_candidates'),
+   path('applications/<int:application_id>/status/', application_statusfn, name='application_status'),
+   path('candidates/<int:job_id>/reject-selected/', bulk_reject_applications_fn, name='bulk_reject_applications'),
+   path('applications/<int:application_id>/resume/', applicant_resume_fn, name='applicant_resume'),
    path('login/',loginfn),
    path('logout/',logoutfn),
    path('experiance/',experiancefn,name='experiance'),

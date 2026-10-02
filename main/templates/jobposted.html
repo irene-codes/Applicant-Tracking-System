@@ -5,22 +5,41 @@
 {%endblock %}
 
 {%block content%}
-{% for i in jobs%}
-<div class="card">
-  <h5 class="card-header"> {{i.title}} </h5>
-  <div class="card-body">
-    <h5 class="card-title"> {{i.company}} </h5>
-    <p class="card-text"> {{i.description}} </p>
-    <p class="card-text"> {{i.salary}} </p>
-    <p class="card-text"> {{i.location}} </p>
-    <p class="card-text"> {{i.responsibilities}} </p>
-    <p class="card-text"> {{i.requirements}} </p>
-    <p class="card-text"> {{i.availability}} </p>
-    <p class="card-text"> Posted by:{{request.user}} </p>
-    {% if request.user == i.posted_by%}
-    <a href="#" class="btn btn-primary">Delete</a>
+<div class="job-wrapper">
+  <div class="jobs-heading">
+    {% if user_role == 'interviewer' %}
+      <h1>Jobs</h1>
+      <p>Manage your postings or review opportunities listed on the platform.</p>
+    {% else %}
+      <h1>Available jobs</h1>
+      <p>Explore opportunities and open a listing to see the full details.</p>
+    {% endif %}
+  </div>
+  <div class="job-list">
+    {% if user_role == 'interviewer' %}
+      <section class="job-group">
+        <h2>Your job postings</h2>
+        {% for i in own_jobs %}
+          {% include 'job_summary_card.html' with i=i %}
+        {% empty %}
+          <p class="no-jobs">You haven’t posted any jobs yet.</p>
+        {% endfor %}
+      </section>
+      <section class="job-group">
+        <h2>Other job postings</h2>
+        {% for i in other_jobs %}
+          {% include 'job_summary_card.html' with i=i %}
+        {% empty %}
+          <p class="no-jobs">There are no other job postings yet.</p>
+        {% endfor %}
+      </section>
+    {% else %}
+      {% for i in jobs %}
+        {% include 'job_summary_card.html' with i=i %}
+      {% empty %}
+        <p class="no-jobs">No jobs have been posted yet.</p>
+      {% endfor %}
     {% endif %}
   </div>
 </div>
-{% endfor %}
 {%endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/jobposted.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="job-wrapper job-detail-page">
+  <article class="job-detail-card">
+    <a class="back-to-jobs" href="/jobsearch/">← Back to jobs</a>
+    <p class="job-detail-company">{{ job.company }}</p>
+    <h1>{{ job.title }}</h1>
+    <div class="job-detail-meta">
+      <span>Posted by <strong>{{ job.posted_by.get_full_name|default:job.posted_by.username }}</strong></span>
+      <span>{{ job.get_availability_display|default:"Availability not specified" }}</span>
+      <span>Salary: {{ job.salary|floatformat:2 }}</span>
+      <span>{{ job.location }}</span>
+    </div>
+
+    <section class="job-detail-section">
+      <h2>About the role</h2>
+      <p>{{ job.description }}</p>
+    </section>
+    {% if job.responsibilities %}
+      <section class="job-detail-section">
+        <h2>Responsibilities</h2>
+        <p>{{ job.responsibilities }}</p>
+      </section>
+    {% endif %}
+    {% if job.requirements %}
+      <section class="job-detail-section">
+        <h2>Requirements</h2>
+        <p>{{ job.requirements }}</p>
+      </section>
+    {% endif %}
+
+    <div class="job-detail-actions">
+      {% if request.user == job.posted_by %}
+        <a class="btn btn-outline-success" href="{% url 'job_candidates' job.id %}">View candidates</a>
+        <a class="btn btn-outline-secondary" href="{% url 'editjob' job.id %}">Edit job</a>
+      {% elif applied %}
+        <span class="btn btn-success">Applied</span>
+      {% else %}
+        <form method="post" action="{% url 'apply_job' job.id %}" class="job-apply-form">
+          {% csrf_token %}
+          <label for="resume-template">Resume template used</label>
+          <select id="resume-template" name="resume_template" class="form-select" required>
+            <option value="">Choose your template</option>
+            <option value="professional1" {% if chosen_template == 'professional1' %}selected{% endif %}>Professional 1</option>
+            <option value="professional2" {% if chosen_template == 'professional2' %}selected{% endif %}>Professional 2</option>
+            <option value="professional3" {% if chosen_template == 'professional3' %}selected{% endif %}>Professional 3</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Apply</button>
+        </form>
+      {% endif %}
+    </div>
+  </article>
+</div>
+{% endblock %}

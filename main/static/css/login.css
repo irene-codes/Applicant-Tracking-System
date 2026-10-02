@@ -1,7 +1,7 @@
 .fm{
     display: flex;
     flex-direction: column;
-    margin-top: 3px;
+    margin-top: 10px;
     /* border: solid; */
     padding: 20px;
     width: fit-content;
@@ -13,7 +13,7 @@ row (default)	horizontal →	vertical ↕
 column (yours)	vertical ↕	horizontal → */
 }
 .k{
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     background-color: rgb(215, 243, 252);
     border: none;
 }
@@ -25,18 +25,22 @@ column (yours)	vertical ↕	horizontal → */
     
     
 }
-body{
-    background-color: rgb(2, 24, 44);
+.login-page-wrapper{
+    background-color: rgb(5, 5, 37);
+    flex: 1;
+    /* flex: 1 tells it: "grow and take up all the leftover space in the .tot flex row, after .see takes its share." */
+    
+
 }
 .l{
     margin-top: 12px;
 }
 .lu{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
-    flex-direction: column;
-    color: rgb(219, 220, 230);
+    flex-direction: row;
+    color: rgb(180, 182, 200);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-top: 40px;
    

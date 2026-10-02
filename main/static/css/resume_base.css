@@ -6,3 +6,8 @@
 .kl{
     border-radius: 20px;
 }
+.na{
+   
+    flex: 1;
+    background-color: rgb(6, 6, 46);
+}

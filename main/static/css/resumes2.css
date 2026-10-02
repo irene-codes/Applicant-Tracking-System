@@ -1,6 +1,9 @@
 body {
   margin: 0 auto;
 }
+.ke{
+  background-color: rgb(236, 245, 252);
+}
 .resume-container {
   font-family: sans-serif;
 }

@@ -9,6 +9,12 @@
 
 {% block resume_content %}
 <div class="z">
+    {% if pending_application %}
+        <div class="alert alert-info" role="status">
+            Complete and save your application details to submit your application and return to the jobs page.
+            {% if missing_details %}<br>Still needed: {{ missing_details|join:", " }}.{% endif %}
+        </div>
+    {% endif %}
     <form  class="l" method="post" action="/add/{{t_name}}" enctype="multipart/form-data">
     {%csrf_token%}
         <div class="row">
@@ -25,7 +31,7 @@
             {% endfor%}
 
         </div>
-        <input type="submit" name="" id="" class="bttn btn-primary c" value=" Save">
+        <input type="submit" name="" id="" class="bttn btn-primary c" value="{% if pending_application %}Save and Apply{% else %}Save{% endif %}">
         
 
     </form>

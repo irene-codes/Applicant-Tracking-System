@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block resume_content %}
-<button type="button" id="add-expertise-btn" class="btn btn-secondary">+ Add More Interests</button>
+<div>
+    <button type="button" id="add-expertise-btn" class="btn btn-secondary">+ Add More Interests</button>
 <div class="z">
     <form  class="l" method="post" action="/expertise/" enctype="multipart/form-data">
     {%csrf_token%}
@@ -30,6 +31,8 @@
     </form>
 
 </div>
+</div>
+
 <script>
    document.getElementById('add-expertise-btn').addEventListener('click',function(){
         const container=document.getElementById('expertise-forms-container');
